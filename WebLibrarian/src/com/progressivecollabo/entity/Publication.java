@@ -1,17 +1,23 @@
 package com.progressivecollabo.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Publication extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	String ISBN; 
+	String ISBN;
 	String title;
 	String description;
 	LocalDate releaseDate;
 	int numberOfPages;
 	String editionNumber;
+	List<Author> author;
+
+	class Author {
+		String authorName;
+	}
 
 	public static class Book extends Publication {
 
@@ -36,7 +42,7 @@ public class Publication extends BaseEntity {
 		private static final long serialVersionUID = 1L;
 
 		public Magazine() {
-			
+
 		}
 	}
 
@@ -45,7 +51,7 @@ public class Publication extends BaseEntity {
 		private static final long serialVersionUID = 1L;
 
 		public NewsPaper() {
-			
+
 		}
 	}
 
