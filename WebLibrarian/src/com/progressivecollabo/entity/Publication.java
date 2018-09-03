@@ -3,65 +3,78 @@ package com.progressivecollabo.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Publication extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+public class Publication extends BaseEntity
+{
 
-	String ISBN;
-	String title;
-	String description;
-	LocalDate releaseDate;
-	int numberOfPages;
-	String editionNumber;
-	List<Author> author;
+    private static final long serialVersionUID = 1L;
 
-	class Author {
-		String authorName;
-	}
+    String ISBN;
+    String title;
+    String description;
+    LocalDate releaseDate;
+    int numberOfPages;
+    String editionNumber;
+    List<Author> author;
 
-	public static class Book extends Publication {
+    class Author
+    {
+        String authorName;
+    }
 
-		private static final long serialVersionUID = 1L;
+    public static class Book extends Publication
+    {
 
-		public Book() {
-			boolean paperback;
-			String genre;
-		}
-	}
+        private static final long serialVersionUID = 1L;
 
-	public static class Journal extends Publication {
+        public Book()
+        {
+            boolean paperback;
+            String genre;
+        }
+    }
 
-		private static final long serialVersionUID = 1L;
+    public static class Journal extends Publication
+    {
 
-		public Journal() {
-		}
-	}
+        private static final long serialVersionUID = 1L;
 
-	public static class Magazine extends Publication {
+        public Journal()
+        {
+        }
+    }
 
-		private static final long serialVersionUID = 1L;
+    public static class Magazine extends Publication
+    {
 
-		public Magazine() {
+        private static final long serialVersionUID = 1L;
 
-		}
-	}
+        public Magazine()
+        {
 
-	public static class NewsPaper extends Publication {
+        }
+    }
 
-		private static final long serialVersionUID = 1L;
+    public static class NewsPaper extends Publication
+    {
 
-		public NewsPaper() {
+        private static final long serialVersionUID = 1L;
 
-		}
-	}
+        public NewsPaper()
+        {
 
-	public static class TextBook extends Publication {
+        }
+    }
 
-		private static final long serialVersionUID = 1L;
+    public static class TextBook extends Publication
+    {
 
-		public TextBook() {
+        private static final long serialVersionUID = 1L;
 
-		}
-	}
+        public TextBook()
+        {
+
+        }
+    }
 
 }
