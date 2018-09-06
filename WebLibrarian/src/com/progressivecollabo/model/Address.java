@@ -1,4 +1,4 @@
-package com.progressivecollabo.entity;
+package com.progressivecollabo.model;
 
 import java.io.Serializable;
 
@@ -8,8 +8,7 @@ import com.progressivecollabo.enums.AddressType;
  * Represents a single address.
  */
 public class Address implements Serializable
-{
-
+{ 
     private static final long serialVersionUID = 1L;
 
     public int id; // for sorting
