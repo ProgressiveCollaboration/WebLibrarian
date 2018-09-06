@@ -2,44 +2,132 @@ package com.progressivecollabo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
+
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.PrePersist;
 
 /**
  * Base class for all persistable data
  */
-public class BaseEntity implements Serializable
-{
+public class BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	@Id
+	private String uuid;
+	private String createdBy;
+	private LocalDateTime createdDate;
+	private String modifiedBy;
+	private LocalDateTime modifiedDate;
+	private String archivedBy;
+	private LocalDateTime archivedDate;
+	private boolean archived;
+	String language;
 
-    String uuid; // 3PUB-YEAR-UUID
+	public String getId() {
+		return uuid;
+	}
 
-    String craetedBy;
-    LocalDateTime createdDate;
-    String modifiedBy;
-    LocalDateTime modifiedDate;
-    String archivedBy;
-    LocalDateTime archivedDate;
+	@PrePersist
+	private void prepersist() {
+		if (uuid == null)
+			setUuid(IdPrefix() + UUID.randomUUID().toString());
 
-    boolean archived;
+		if (createdDate == null) {
+			// setCreatedBy(getSessionUser());
+			setCreatedDate(LocalDateTime.now());
+		}
 
-    List<Pricing> pricinginformation;
+		// setModifiedBy(getSessionUser());
+		setModifiedDate(LocalDateTime.now());
+	}
 
-    String language;
-    String publisherID;
-    String publisherName;
-    String releaseYear;
-    String publisherWebsite;
-    String copyright;
+	public void save() {
 
-    public static class Pricing
-    {
-        String priceType; // RENTAL, BUY
-        double unitCost;
-        String unitCostCurrency;
-    }
+	}
 
-    // 0 - true, 12.3 $
-    // 1 - false, 24.4 $
+	public void delete() {
+	}
 
+	public void get() {
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public String getArchivedBy() {
+		return archivedBy;
+	}
+
+	public LocalDateTime getArchivedDate() {
+		return archivedDate;
+	}
+
+	public boolean isArchived() {
+		return archived;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public void setArchivedBy(String archivedBy) {
+		this.archivedBy = archivedBy;
+	}
+
+	public void setArchivedDate(LocalDateTime archivedDate) {
+		this.archivedDate = archivedDate;
+	}
+
+	public void setArchived(boolean archived) {
+		this.archived = archived;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	/**
+	 * can be used by subclasses to set an _id prefix
+	 */
+	public String IdPrefix() {
+		return "";
+	}
 }

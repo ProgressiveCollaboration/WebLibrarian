@@ -5,25 +5,23 @@ import java.time.LocalDateTime;
 /**
  * Represents a single user account.
  */
-public class LibraryUser extends BaseEntity
-{
+public class LibraryUser extends BaseEntity {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	String userid;
+	String firstName;
+	String MiddleName;
+	String lastName;
 
-    String userid;
-    String firstName;
-    String MiddleName;
-    String lastName;
+	LocalDateTime dateOfBirth;
 
-    LocalDateTime dateOfBirth;
+	String emailAddress;
+	String phoneNumber;
 
-    String emailAddress;
-    String phoneNumber;
+	boolean accountBanned;
+	boolean accessToRentable;
+	boolean accessToConsumable;
 
-    boolean accountBanned;
-    boolean accessToRentable;
-    boolean accessToConsumable;
-
-    String emailAddressVerified;
-    String emailAddressVerifiedDate;
+	String emailAddressVerified;
+	String emailAddressVerifiedDate;
 }

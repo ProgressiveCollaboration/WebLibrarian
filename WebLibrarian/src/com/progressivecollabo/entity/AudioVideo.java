@@ -1,75 +1,80 @@
 package com.progressivecollabo.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AudioVideo extends BaseEntity
-{
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
 
-    private static final long serialVersionUID = 1L;
+import com.progressivecollabo.enums.AudioVideoType;
+import com.progressivecollabo.model.MetaData;
+import com.progressivecollabo.model.Pricing;
 
-    LocalDate releaseDate;
-    String title;
-    String description;
-    MetaData metaData;
+@Entity(value = "audiovideo", noClassnameStored = true)
+public class AudioVideo extends BaseEntity {
 
-    public static class DVD extends AudioVideo
-    {
+	private static final long serialVersionUID = 1L;
 
-        private static final long serialVersionUID = 1L;
+	private LocalDate releaseDate;
+	private String title;
+	private String description;
+	private MetaData metaData;
+	private AudioVideoType audioVideoType;
+	@Embedded
+	private List<Pricing> pricinginformation = new ArrayList<Pricing>(1);
 
-        public DVD()
-        {
-        }
-    }
+	@Override
+	public String IdPrefix() {
+		return "AV";
+	}
 
-    public static class BlueRay extends AudioVideo
-    {
+	public LocalDate getReleaseDate() {
+		return releaseDate;
+	}
 
-        private static final long serialVersionUID = 1L;
+	public String getTitle() {
+		return title;
+	}
 
-        public BlueRay()
-        {
-        }
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public static class AudioCD extends AudioVideo
-    {
+	public MetaData getMetaData() {
+		return metaData;
+	}
 
-        private static final long serialVersionUID = 1L;
+	public AudioVideoType getAudioVideoType() {
+		return audioVideoType;
+	}
 
-        public AudioCD()
-        {
-        }
-    }
+	public List<Pricing> getPricinginformation() {
+		return pricinginformation;
+	}
 
-    public static class Ebook extends AudioVideo
-    {
+	public void setReleaseDate(LocalDate releaseDate) {
+		this.releaseDate = releaseDate;
+	}
 
-        private static final long serialVersionUID = 1L;
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-        public Ebook()
-        {
-        }
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public static class AudioBook extends AudioVideo
-    {
+	public void setMetaData(MetaData metaData) {
+		this.metaData = metaData;
+	}
 
-        private static final long serialVersionUID = 1L;
+	public void setAudioVideoType(AudioVideoType audioVideoType) {
+		this.audioVideoType = audioVideoType;
+	}
 
-        public AudioBook()
-        {
-        }
-    }
-
-    public static class VideoCassette extends AudioVideo
-    {
-
-        private static final long serialVersionUID = 1L;
-
-        public VideoCassette()
-        {
-        }
-    }
+	public void setPricinginformation(List<Pricing> pricinginformation) {
+		this.pricinginformation = pricinginformation;
+	}
 
 }
