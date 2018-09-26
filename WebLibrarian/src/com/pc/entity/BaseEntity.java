@@ -15,6 +15,7 @@ import com.pc.db.MDB;
 public class BaseEntity implements Serializable {
 
 	public static String _createdBy = "createdBy";
+	public static String _createdDate = "createdDate";
 	public static String _modifiedBy = "modifiedBy";
 	public static String _modifiedDate = "modifiedDate";
 	public static String _archivedBy = "archivedBy";
@@ -85,7 +86,7 @@ public class BaseEntity implements Serializable {
 		return archivedDate;
 	}
 
-	public void setUuid(String uuid) {
+	private void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 

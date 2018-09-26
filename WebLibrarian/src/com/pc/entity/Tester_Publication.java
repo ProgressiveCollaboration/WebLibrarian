@@ -18,8 +18,7 @@ public class Tester_Publication {
 		MDB.startDB();
 
 		Publication publication = new Publication();
-		// db stuff
-		publication.setUuid(UUID.randomUUID().toString());
+		// db stuff 
 		publication.setCreatedBy("roomtek@gmail.com");
 		publication.setCreatedDate(LocalDateTime.now());
 

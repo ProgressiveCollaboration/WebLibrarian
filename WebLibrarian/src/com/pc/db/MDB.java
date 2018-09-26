@@ -20,6 +20,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
 import com.pc.entity.AudioVideo;
+import com.pc.entity.Publication;
 
 @WebListener
 public class MDB implements ServletContextListener {
@@ -85,6 +86,14 @@ public class MDB implements ServletContextListener {
 		if (!cols.contains(DB_PUBLICATION)) {
 			db.createCollection(DB_PUBLICATION);
 		}
+
+		if (!cols.contains(DB_AUTHOR)) {
+			db.createCollection(DB_AUTHOR);
+		}
+
+		if (!cols.contains(DB_PUBLISHER)) {
+			db.createCollection(DB_PUBLISHER);
+		}
 	}
 
 	public static MongoDatabase getDB() {
@@ -126,6 +135,37 @@ public class MDB implements ServletContextListener {
 		opt.skip(offset);
 		opt.limit(limit);
 		return getordersquery(sort, asc, filter).count();
+	}
+
+	private static Query<Publication> getpublicationsquery(String sort, boolean asc, String filter) {
+		Query<Publication> qry = getDS().find(Publication.class)
+				.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
+//		if (filter != null) {
+//			CriteriaContainer cont = qry.or(qry.criteria(Order._fullName).containsIgnoreCase(filter),
+//					qry.criteria(AudioVideo._clientEmail).containsIgnoreCase(filter));
+//			if (StringUtils.isNumeric(filter))
+//				cont.add(qry.criteria(AudioVideo._orderNumber).equal(Integer.valueOf(filter)));
+//		} else {
+//			// do not show archived data
+		qry.criteria(Publication._archivedDate).equal(null);
+//		}
+		return qry;
+	}
+
+	public static List<Publication> getpublications(int offset, int limit, String sort, boolean asc, String filter) {
+		logger.info(String.format("getpublications (%d %d %s %b %s)\n", offset, limit, sort, asc, filter));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getpublicationsquery(sort, asc, filter).asList(opt);
+	}
+
+	public static long countpublications(int offset, int limit, String sort, boolean asc, String filter) {
+		logger.info(String.format("countpublications (%d %d %s %b %s)\n", offset, limit, sort, asc, filter));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getpublicationsquery(sort, asc, filter).count();
 	}
 
 }
