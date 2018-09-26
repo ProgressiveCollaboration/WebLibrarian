@@ -1,4 +1,4 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -7,10 +7,19 @@ import java.util.UUID;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.PrePersist;
 
+import com.pc.db.MDB;
+
 /**
  * Base class for all persistable data
  */
 public class BaseEntity implements Serializable {
+
+	public static String _createdBy = "createdBy";
+	public static String _modifiedBy = "modifiedBy";
+	public static String _modifiedDate = "modifiedDate";
+	public static String _archivedBy = "archivedBy";
+	public static String _archivedDate = "archivedDate";
+	public static String _archived = "archived";
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -21,8 +30,6 @@ public class BaseEntity implements Serializable {
 	private LocalDateTime modifiedDate;
 	private String archivedBy;
 	private LocalDateTime archivedDate;
-	private boolean archived;
-	String language;
 
 	public String getId() {
 		return uuid;
@@ -43,13 +50,11 @@ public class BaseEntity implements Serializable {
 	}
 
 	public void save() {
-
+		MDB.getDS().save(this);
 	}
 
 	public void delete() {
-	}
-
-	public void get() {
+		MDB.getDS().delete(this);
 	}
 
 	public String getUuid() {
@@ -80,14 +85,6 @@ public class BaseEntity implements Serializable {
 		return archivedDate;
 	}
 
-	public boolean isArchived() {
-		return archived;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
@@ -114,14 +111,6 @@ public class BaseEntity implements Serializable {
 
 	public void setArchivedDate(LocalDateTime archivedDate) {
 		this.archivedDate = archivedDate;
-	}
-
-	public void setArchived(boolean archived) {
-		this.archived = archived;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 
 	/**

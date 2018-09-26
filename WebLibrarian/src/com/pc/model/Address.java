@@ -1,8 +1,8 @@
-package com.progressivecollabo.model;
+package com.pc.model;
 
 import java.io.Serializable;
 
-import com.progressivecollabo.enums.AddressType;
+import com.pc.enums.AddressType;
 
 /**
  * Represents a single address.

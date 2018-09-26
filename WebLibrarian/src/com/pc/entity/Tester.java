@@ -1,4 +1,4 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
 public class Tester {
 

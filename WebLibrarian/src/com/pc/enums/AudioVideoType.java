@@ -1,4 +1,4 @@
-package com.progressivecollabo.enums;
+package com.pc.enums;
 
 /**
  * AudioVideo Categories

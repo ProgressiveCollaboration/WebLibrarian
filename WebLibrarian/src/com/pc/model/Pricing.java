@@ -1,8 +1,8 @@
-package com.progressivecollabo.model;
+package com.pc.model;
 
 import java.io.Serializable;
 
-import com.progressivecollabo.enums.PricingType;
+import com.pc.enums.PricingType;
 
 public class Pricing implements Serializable {
 	private static final long serialVersionUID = 1L;

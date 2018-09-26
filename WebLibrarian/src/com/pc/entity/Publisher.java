@@ -1,5 +1,10 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
+import org.mongodb.morphia.annotations.Entity;
+
+import com.pc.db.MDB;
+
+@Entity(value = MDB.DB_PUBLISHER, noClassnameStored = true)
 public class Publisher extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,11 +7,12 @@ import java.util.List;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 
-import com.progressivecollabo.enums.AudioVideoType;
-import com.progressivecollabo.model.MetaData;
-import com.progressivecollabo.model.Pricing;
+import com.pc.db.MDB;
+import com.pc.enums.AudioVideoType;
+import com.pc.model.MetaData;
+import com.pc.model.Pricing;
 
-@Entity(value = "audiovideo", noClassnameStored = true)
+@Entity(value = MDB.DB_AUDIOVIDEO, noClassnameStored = true)
 public class AudioVideo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,7 @@ public class AudioVideo extends BaseEntity {
 	private String description;
 	private MetaData metaData;
 	private AudioVideoType audioVideoType;
+	private String language;
 	@Embedded
 	private List<Pricing> pricinginformation = new ArrayList<Pricing>(1);
 
@@ -75,6 +77,14 @@ public class AudioVideo extends BaseEntity {
 
 	public void setPricinginformation(List<Pricing> pricinginformation) {
 		this.pricinginformation = pricinginformation;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

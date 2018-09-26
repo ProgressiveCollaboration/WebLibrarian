@@ -1,18 +1,21 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.progressivecollabo.enums.PricingType;
-import com.progressivecollabo.enums.PublicationType;
-import com.progressivecollabo.model.Pricing;
-import com.progressivecollabo.model.ShippingInformation;
-import com.progressivecollabo.model.ShippingInformation.WeightUnit;
+import com.pc.db.MDB;
+import com.pc.enums.PricingType;
+import com.pc.enums.PublicationType;
+import com.pc.model.Pricing;
+import com.pc.model.ShippingInformation;
+import com.pc.model.ShippingInformation.WeightUnit;
 
 public class Tester_Publication {
 
 	public static void main(String[] args) {
+		
+		MDB.startDB();
 
 		Publication publication = new Publication();
 		// db stuff
@@ -28,13 +31,12 @@ public class Tester_Publication {
 		publication.setISBN_10("1433606577");
 		publication.setISBN_13("978-1433606571");
 		publication.setPublicationType(PublicationType.BOOK);
-		publication.language = "English";
+		publication.setLanguage("English");
 		publication.setBinding("Imitation Leather");
 		publication.setFirstPublishedDate(LocalDate.of(2013, 1, 1));
 		publication.setEdition("Large Print edition (October 1, 2013)");
 		publication.setNumberOfPages(1568);
-		publication.setArchived(false);
-
+ 
 		{ // author
 			Author author = new Author();
 			author.setAka("Holman Bible Staff");
@@ -74,6 +76,9 @@ public class Tester_Publication {
 		System.out.println(publication.toString());
 		System.out.println(publication.getShippingInformation().getWeight(WeightUnit.KG));
 
+		publication.save();
+		
+		MDB.stopDB();
 	}
 
 }

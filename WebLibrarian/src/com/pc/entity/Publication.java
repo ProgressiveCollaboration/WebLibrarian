@@ -1,4 +1,4 @@
-package com.progressivecollabo.entity;
+package com.pc.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,11 +7,12 @@ import java.util.List;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 
-import com.progressivecollabo.enums.PublicationType;
-import com.progressivecollabo.model.Pricing;
-import com.progressivecollabo.model.ShippingInformation;
+import com.pc.db.MDB;
+import com.pc.enums.PublicationType;
+import com.pc.model.Pricing;
+import com.pc.model.ShippingInformation;
 
-@Entity(value = "publication", noClassnameStored = true)
+@Entity(value = MDB.DB_PUBLICATION, noClassnameStored = true)
 public class Publication extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +33,7 @@ public class Publication extends BaseEntity {
 	private String releaseCycle; // LOV publication_releasecycle
 	private ShippingInformation shippingInformation;
 	private String title;
+	private String language;
 
 	public String getBinding() {
 		return binding;
@@ -161,6 +163,14 @@ public class Publication extends BaseEntity {
 				+ pricinginformation + ", publicationType=" + publicationType + ", authorId=" + authorId
 				+ ", publisherId=" + publisherId + ", releaseCycle=" + releaseCycle + ", shippingInformation="
 				+ shippingInformation + ", title=" + title + "]";
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

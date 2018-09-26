@@ -1,9 +1,14 @@
-package com.progressivecollabo.model;
+package com.pc.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Person implements Serializable {
+import org.mongodb.morphia.annotations.Entity;
+
+import com.pc.db.MDB;
+
+@Entity(value = MDB.DB_AUTHOR, noClassnameStored = true)
+public class Author extends BaseEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	private String firstName;
@@ -14,6 +19,11 @@ public class Person implements Serializable {
 	private String website;
 	private String imageURL;
 	private LocalDate dateOfBirth;
+
+	@Override
+	public String IdPrefix() {
+		return "PER-";
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -81,8 +91,9 @@ public class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", LastName=" + LastName + ", gender=" + gender + ", aka=" + aka
+		return "Author [firstName=" + firstName + ", LastName=" + LastName + ", gender=" + gender + ", aka=" + aka
 				+ ", emailAddress=" + emailAddress + ", website=" + website + ", imageURL=" + imageURL
 				+ ", dateOfBirth=" + dateOfBirth + "]";
 	}
+
 }
