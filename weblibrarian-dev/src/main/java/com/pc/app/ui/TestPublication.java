@@ -7,18 +7,16 @@ import com.pc.entity.Publication;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.page.Push;
-import com.vaadin.flow.component.page.Viewport;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Viewport("user-scalable=no, initial-scale=1.0, shrink-to-fit=no")
-@Push
-@Route("")
+@PageTitle("TestPublication")
+@Route(value = "", layout = BaseFragment.class)
 public class TestPublication extends Div {
 
 	private static final long serialVersionUID = 3837883965132583616L;
 
-	public TestPublication() { 
+	public TestPublication() {
 		long t = MDB.countpublications(0, 100, AudioVideo._createdBy, false, null);
 
 		add(new Span("Test Data " + t));
@@ -30,7 +28,7 @@ public class TestPublication extends Div {
 		pubgrid.addColumn(Publication::getGenre).setHeader("Genre");
 		pubgrid.addColumn(Publication::getLanguage).setHeader("Language");
 		pubgrid.addColumn(Publication::getNumberOfPages).setHeader("Pages");
-		pubgrid.addColumn(Publication::getBinding).setHeader("Binding"); 
+		pubgrid.addColumn(Publication::getBinding).setHeader("Binding");
 
 		add(pubgrid);
 
