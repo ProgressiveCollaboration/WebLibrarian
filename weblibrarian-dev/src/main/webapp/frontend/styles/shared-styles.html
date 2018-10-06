@@ -52,7 +52,7 @@
             height: auto;
             --main-layout-header-height: 64px;
             background-color: transparent !important;
-            font-family: Segoe UI;
+            /* font-family: Segoe UI; */
         }
 
         body {
@@ -74,28 +74,38 @@
         	display: flex;
         	flex-direction: column; 
         	font-weight: 600;
+        	flex-shrink: 0; 
+        	overflow-y: scroll;
         }
         
-        .sidenav > .headerbanner { 
+        .vnav-headerbanner { 
         	height: 4em; 
         	border-bottom: 1px solid #303030;     
         	display: flex;
     		flex-direction: column; 
-    		justify-content: space-around;         	    
+    		justify-content: space-around;      
+			flex-shrink: 0;  	    
         }
         
-        .sidenav > .headerbanner > .applicationlogo { 
+        .vnav-headerbanner > .applicationlogo { 
         	 color: white;
-        	 font-size: var(--lumo-font-size-xl);
-        	 font-family: Segoe UI;  
+        	 font-size: var(--lumo-font-size-xl); 
         	 letter-spacing: -1px; 
         }
         
-        .sidenav > .sectionheader { 
+        .vnav-midsection { 
+        	overflow-y: auto;
+        	flex-grow: 1;
+        }
+        
+        .vnav-footer {
+        	flex-shrink: 0; 
+        }
+        
+        .vnav-sectionheader { 
         	margin-top: 1.5em;
         	color: #969696;
-        	font-size: var(--lumo-font-size-xs);
-        	font-family: Segoe UI; 
+        	font-size: var(--lumo-font-size-xs); 
         	padding-left: 3px; 
         }
         
@@ -105,6 +115,16 @@
         
         .navpad {
         	margin-left: 30px;
+        }
+        
+        .icontext > img {
+		    width: 1em;
+			margin-right: 0.5em;
+		}
+        
+        .icontext {
+        	display: contents;
+        	color: white;
         }
         
         .btn-mr {

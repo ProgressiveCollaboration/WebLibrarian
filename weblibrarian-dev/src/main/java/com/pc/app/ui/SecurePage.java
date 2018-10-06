@@ -1,5 +1,7 @@
 package com.pc.app.ui;
 
+import com.pc.app.ui.HtmlC.IconText;
+import com.pc.app.ui.HtmlC.NavigationBar;
 import com.pc.app.ui.frag.Account;
 import com.pc.app.ui.frag.AudioVideoReport;
 import com.pc.app.ui.frag.InventoryManagment;
@@ -28,40 +30,37 @@ public class SecurePage extends FlexLayout implements RouterLayout {
 
 	private static final long serialVersionUID = 5873104864223432186L;
 
-	private Div sidenavbar = new Div();
+	private NavigationBar sidenavbar = new NavigationBar();
 
 	public SecurePage() {
 		addClassNames("securepage");
 
-		sidenavbar.addClassNames("sidenav");
-
-		Div headerbanner = new Div();
-		headerbanner.addClassNames("headerbanner");
-
 		Span applicationLogo = new Span("WebLibrarian");
 		applicationLogo.addClassNames("applicationlogo", "navpad");
 
-		headerbanner.add(applicationLogo);
+		sidenavbar.addHeader(applicationLogo);
 
-		sidenavbar.add(headerbanner);
+		Div dashboardtxt = new Div(new Span("DASHBOARDS"));
+		dashboardtxt.addClassNames("vnav-sectionheader", "navpad");
 
-		Span dashboardtxt = new Span("DASHBOARDS");
-		dashboardtxt.addClassNames("sectionheader", "navpad");
-
-		RouterLink q = new RouterLink("Publications", PublicationsReport.class);
+		RouterLink q = new RouterLink("", PublicationsReport.class);
+		q.add(new IconText("book.svg", "Publications"));
 		q.setHighlightCondition(HighlightConditions.locationPrefix());
 		q.addClassName("routerlink");
 
-		RouterLink t = new RouterLink("Audio / Video", AudioVideoReport.class);
+		RouterLink t = new RouterLink("", AudioVideoReport.class);
+		// 
+		t.add(new IconText("film.svg", "Audio / Video"));
 		t.setHighlightCondition(HighlightConditions.locationPrefix());
 		t.addClassName("routerlink");
 
-		sidenavbar.add(dashboardtxt, t, q);
+		sidenavbar.addSection(dashboardtxt, t, q);
 
-		Span administrationtxt = new Span("ADMINISTRATION");
-		administrationtxt.addClassNames("sectionheader", "navpad");
+		Div administrationtxt = new Div(new Span("ADMINISTRATION"));
+		administrationtxt.addClassNames("vnav-sectionheader", "navpad");
 
-		RouterLink x = new RouterLink("User Registration", UserRegistration.class);
+		RouterLink x = new RouterLink("", UserRegistration.class);
+		x.add(new IconText("users.svg", "User Registration"));
 		x.setHighlightCondition(HighlightConditions.locationPrefix());
 		x.addClassName("routerlink");
 
@@ -73,23 +72,25 @@ public class SecurePage extends FlexLayout implements RouterLayout {
 		z.setHighlightCondition(HighlightConditions.locationPrefix());
 		z.addClassNames("routerlink");
 
-		RouterLink r = new RouterLink("Requests / Returns", ServiceRequest.class);
+		RouterLink r = new RouterLink("", ServiceRequest.class);
+		r.add(new IconText("alert-octagon.svg", "Requests / Returns"));
 		r.setHighlightCondition(HighlightConditions.locationPrefix());
 		r.addClassNames("routerlink");
 
-		RouterLink m = new RouterLink("MailBox", MailBox.class);
+		RouterLink m = new RouterLink("", MailBox.class);
+		m.add(new IconText("mail.svg", "MailBox"));
 		m.setHighlightCondition(HighlightConditions.locationPrefix());
 		m.addClassNames("routerlink");
 
-		sidenavbar.add(administrationtxt, x, y, z, r, m);
+		sidenavbar.addSection(administrationtxt, x, y, z, r, m);
 
 		Div blockspacer = new Div();
 		blockspacer.addClassName("blockspacer");
-		sidenavbar.add(blockspacer);
+		sidenavbar.addSection(blockspacer);
 
 		Button signout = new Button("Sign Out");
 		signout.getElement().setAttribute("theme", "tertiary error");
-		sidenavbar.add(signout);
+		sidenavbar.addFooter(signout);
 
 		add(sidenavbar);
 	}
