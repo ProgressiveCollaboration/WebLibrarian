@@ -26,8 +26,13 @@ public class Fragment extends FlexLayout {
 		add(headerflx, toolbar, midcontent, footer);
 	}
 
-	void setTitleText(String title) {
+	void setHeaderText(String title) {
 		titlebar.setText(title);
+	}
+
+	void setHeaderComponent(Component... component) {
+		titlebar.removeAll();
+		titlebar.add(component);
 	}
 
 	void addToolbarComponent(Component... component) {

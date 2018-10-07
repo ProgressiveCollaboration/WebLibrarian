@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 
 public class HtmlC {
@@ -23,6 +24,21 @@ public class HtmlC {
 			this();
 			add(components);
 		}
+	}
+
+	public static class GridHeader extends Span {
+
+		private static final long serialVersionUID = 1L;
+
+		public GridHeader() {
+			addClassName("gridheader");
+		}
+
+		public GridHeader(String text) {
+			this();
+			setText(text);
+		}
+
 	}
 
 	public static class IconText extends Div {
@@ -61,7 +77,7 @@ public class HtmlC {
 	}
 
 	@Tag("div")
-	public static class NavigationBar extends FlexLayout {
+	public static class NavigationBar extends Div {
 
 		private static final long serialVersionUID = 1L;
 
@@ -104,9 +120,10 @@ public class HtmlC {
 			setText(text);
 		}
 
-		public void addThemeAttr(String attr) {
+		public SmallButton addThemeAttr(String attr) {
 			String theme = getElement().getAttribute("theme");
 			getElement().setAttribute("theme", theme + " " + attr);
+			return this;
 		}
 
 	}

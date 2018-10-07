@@ -7,6 +7,15 @@ import com.pc.enums.PricingType;
 public class Pricing implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public Pricing() {
+	}
+
+	public Pricing(double cost, String currency, PricingType type) {
+		setUnitCost(cost);
+		setPriceType(type);
+		setUnitCostCurrency(currency);
+	}
+
 	public PricingType getPriceType() {
 		return priceType;
 	}

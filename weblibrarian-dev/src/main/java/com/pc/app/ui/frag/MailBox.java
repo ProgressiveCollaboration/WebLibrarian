@@ -11,7 +11,7 @@ public class MailBox extends Fragment {
 	private static final long serialVersionUID = 3837883965132583616L;
 
 	public MailBox() {
-		setTitleText("MailBox");
+		setHeaderText("MailBox");
 
 	}
 

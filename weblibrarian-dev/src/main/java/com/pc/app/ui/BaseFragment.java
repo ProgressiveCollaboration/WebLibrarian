@@ -10,6 +10,6 @@ public class BaseFragment extends FlexLayout implements RouterLayout {
 	private static final long serialVersionUID = 1L;
 
 	public BaseFragment() {
-		getStyle().set("padding", "1em").set("flexGrow", "1").set("flexDirection", "column");
+		getStyle().set("flexGrow", "1").set("flexDirection", "column");
 	}
 }

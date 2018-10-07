@@ -29,6 +29,7 @@ public class Publication extends BaseEntity {
 	private List<Pricing> pricinginformation = new ArrayList<>(1);
 	private PublicationType publicationType = PublicationType.NONE;
 	private List<String> authorId = new ArrayList<>(1);
+	private List<String> imageURL = new ArrayList<>(1);
 	private String publisherId;
 	private String releaseCycle; // LOV publication_releasecycle
 	private ShippingInformation shippingInformation;
@@ -160,9 +161,9 @@ public class Publication extends BaseEntity {
 		return "Publication [binding=" + binding + ", description=" + description + ", edition=" + edition
 				+ ", firstPublishedDate=" + firstPublishedDate + ", genre=" + genre + ", ISBN_10=" + ISBN_10
 				+ ", ISBN_13=" + ISBN_13 + ", numberOfPages=" + numberOfPages + ", pricinginformation="
-				+ pricinginformation + ", publicationType=" + publicationType + ", authorId=" + authorId
-				+ ", publisherId=" + publisherId + ", releaseCycle=" + releaseCycle + ", shippingInformation="
-				+ shippingInformation + ", title=" + title + "]";
+				+ pricinginformation + ", publicationType=" + publicationType + ", authorId=" + authorId + ", imageURL="
+				+ imageURL + ", publisherId=" + publisherId + ", releaseCycle=" + releaseCycle
+				+ ", shippingInformation=" + shippingInformation + ", title=" + title + ", language=" + language + "]";
 	}
 
 	public String getLanguage() {
@@ -171,6 +172,14 @@ public class Publication extends BaseEntity {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public List<String> getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(List<String> imageURL) {
+		this.imageURL = imageURL;
 	}
 
 }

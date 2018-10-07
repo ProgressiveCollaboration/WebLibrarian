@@ -2,7 +2,6 @@ package com.pc.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import com.pc.db.MDB;
 import com.pc.enums.PricingType;

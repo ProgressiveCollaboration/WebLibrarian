@@ -9,9 +9,13 @@ public class Publisher extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String _publisherName = "publisherName";
+
 	private String publisherName;
 	private String publisherWebsite;
 	private String copyright;
+	private String wikiLink;
+	private String imageUrl;
 
 	@Override
 	public String IdPrefix() {
@@ -45,7 +49,27 @@ public class Publisher extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Publisher [publisherName=" + publisherName + ", publisherWebsite=" + publisherWebsite + ", copyright="
-				+ copyright + "]";
+				+ copyright + ", wikiLink=" + wikiLink + ", imageUrl=" + imageUrl + "]";
+	}
+
+	public String getWikiLink() {
+		return wikiLink;
+	}
+
+	public void setWikiLink(String wikiLink) {
+		this.wikiLink = wikiLink;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public String getImageUrl(String def) {
+		return imageUrl != null ? imageUrl : def;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 }

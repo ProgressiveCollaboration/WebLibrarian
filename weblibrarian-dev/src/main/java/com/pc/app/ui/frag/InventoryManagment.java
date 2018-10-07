@@ -3,11 +3,23 @@ package com.pc.app.ui.frag;
 import org.apache.commons.lang3.StringUtils;
 
 import com.pc.app.ui.BaseFragment;
+import com.pc.app.ui.HtmlC.FlexMe;
+import com.pc.app.ui.HtmlC.GridHeader;
 import com.pc.app.ui.HtmlC.SmallButton;
+import com.pc.app.ui.backend.PublicationsDP;
+import com.pc.app.ui.backend.PublicationsDP.PublicationsView;
+import com.pc.app.ui.backend.PublishersDP;
+import com.pc.entity.Publisher;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.IronIcon;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
@@ -27,16 +39,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 	private Div innercontent = new Div();
 
 	public InventoryManagment() {
-		setTitleText("Inventory");
-
-		SmallButton addpubbtn = new SmallButton("Add Publisher");
-		addpubbtn.addClassName("btn-mr");
-		SmallButton addauthorbtn = new SmallButton("Add Author");
-		addauthorbtn.addClassName("btn-mr");
-		SmallButton addpublicationbtn = new SmallButton("Add Publication");
-		addpublicationbtn.addClassName("btn-mr");
-
-		addToolbarComponent(addpubbtn, addauthorbtn, addpublicationbtn);
+		setHeaderText("Inventory");
 
 		Tab tab1 = new Tab("Publishers");
 		Tab tab2 = new Tab("Authors");
@@ -92,9 +95,160 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 	void buildPageContent(int index) {
 		innercontent.removeAll();
-		innercontent.add(new Span("index = " + index));
-		
-		
-		
+
+		switch (index) {
+		case 0:
+			buildforPublishers(innercontent);
+			break;
+		case 1:
+			buildforAuthors(innercontent);
+			break;
+		case 2:
+			buildforPublications(innercontent);
+			break;
+		}
+
+	}
+
+	private void buildforAuthors(Div parent) {
+
+		TextField searchbox = new TextField();
+		searchbox.setPrefixComponent(new Icon("lumo", "search"));
+		searchbox.setPlaceholder("Search By Author Name");
+		searchbox.getElement().setAttribute("theme", "small");
+		searchbox.getStyle().set("flexGrow", "1");
+		searchbox.addClassName("btn-mr");
+		// searchbox.addValueChangeListener(vc ->
+		// filterabledp.setFilter(vc.getValue()));
+
+		SmallButton addpublicationbtn = new SmallButton("Add Author");
+		addpublicationbtn.addThemeAttr("primary");
+
+		Div btngroup = new Div(addpublicationbtn);
+
+		FlexMe sectionblock = new FlexMe(searchbox, btngroup);
+		sectionblock.setClassName("sectionblock");
+		parent.add(sectionblock);
+
+	}
+
+	private void buildforPublishers(Div parent) {
+
+		ConfigurableFilterDataProvider<Publisher, Void, String> fdp = new PublishersDP().withConfigurableFilter();
+
+		TextField searchbox = new TextField();
+		searchbox.setPrefixComponent(new Icon("lumo", "search"));
+		searchbox.setPlaceholder("Search By Publisher Name");
+		searchbox.getElement().setAttribute("theme", "small");
+		searchbox.getStyle().set("flexGrow", "1");
+		searchbox.addClassName("btn-mr");
+		searchbox.addValueChangeListener(vc -> fdp.setFilter(vc.getValue()));
+
+		SmallButton addpublicationbtn = new SmallButton("Add Publisher");
+		addpublicationbtn.addThemeAttr("primary");
+
+		Div btngroup = new Div(addpublicationbtn);
+
+		FlexMe sectionblock = new FlexMe(searchbox, btngroup);
+		sectionblock.setClassName("sectionblock");
+		parent.add(sectionblock);
+
+		Grid<Publisher> pg = new Grid<>();
+		pg.addClassName("sectionblock");
+		pg.getElement().setAttribute("theme", "no-border");
+
+		pg.addComponentColumn(pub -> {
+			SmallButton open = new SmallButton(pub.getPublisherName());
+			open.addThemeAttr("tertiary-inline contrast");
+			open.addClickListener(c -> open.getUI().get().navigate(PublisherView.class, pub.getId()));
+			return open;
+		}).setHeader(new GridHeader("Publisher Name")).setSortProperty(Publisher._publisherName);
+
+		pg.addColumn(Publisher::getPublisherWebsite).setHeader(new GridHeader("Website"));
+		pg.addColumn(Publisher::getWikiLink).setHeader(new GridHeader("Wiki"));
+
+		pg.addComponentColumn(fex -> {
+
+			SmallButton edit = new SmallButton();
+			edit.addThemeAttr("contrast").setIcon(new IronIcon("lumo", "edit"));
+			edit.addClassName("btn-mr");
+			edit.addClickListener(click -> {
+				Dialog dg = new Dialog();
+				dg.add(new Span("ABCD"));
+				dg.open();
+			});
+
+			SmallButton delete = new SmallButton();
+			delete.addThemeAttr("icon error").setIcon(new IronIcon("lumo", "cross"));
+			delete.addClickListener(click -> {
+			});
+
+			Div fl = new Div(edit, delete);
+			fl.getStyle().set("textAlign", "right");
+			return fl;
+		}).setFlexGrow(0).setWidth("160px");
+
+		pg.setDataProvider(fdp);
+		sectionblock.add(pg);
+		parent.add(pg);
+
+	}
+
+	private void buildforPublications(Div parent) {
+
+		ConfigurableFilterDataProvider<PublicationsView, Void, String> filterabledp = new PublicationsDP()
+				.withConfigurableFilter();
+
+		TextField searchbox = new TextField();
+		searchbox.setPrefixComponent(new Icon("lumo", "search"));
+		searchbox.setPlaceholder("Search By Title, ISBN");
+		searchbox.getElement().setAttribute("theme", "small");
+		searchbox.getStyle().set("flexGrow", "1");
+		searchbox.addClassName("btn-mr");
+		// searchbox.addValueChangeListener(vc ->
+		// filterabledp.setFilter(vc.getValue()));
+
+		SmallButton importbtn = new SmallButton("Import Data");
+		importbtn.addClassName("btn-mr");
+		SmallButton exportbtn = new SmallButton("Export Data");
+		exportbtn.addClassName("btn-mr");
+		SmallButton addpublicationbtn = new SmallButton("Add Publication");
+		addpublicationbtn.addThemeAttr("primary");
+
+		Div btngroup = new Div(importbtn, exportbtn, addpublicationbtn);
+
+		FlexMe sectionblock = new FlexMe(searchbox, btngroup);
+		sectionblock.setClassName("sectionblock");
+		parent.add(sectionblock);
+
+		Grid<PublicationsView> pg = new Grid<>();
+		pg.addClassName("sectionblock");
+		pg.getElement().setAttribute("theme", "no-border");
+//		pg.addColumn(Publication::getId).setHeader(new GridHeader("ID"));
+
+		pg.addComponentColumn(pub -> {
+			SmallButton open = new SmallButton(pub.getISBN_10());
+			open.addThemeAttr("tertiary-inline contrast");
+			open.addClickListener(c -> open.getUI().get().navigate(PublicationView.class, pub.getId()));
+			return open;
+		}).setHeader(new GridHeader("ISBN-10"))//
+				.setSortProperty("ISBN_10") //
+				.setFlexGrow(0)//
+				.setWidth("120px");
+
+		pg.addColumn(PublicationsView::getTitle).setHeader(new GridHeader("Title")).setSortProperty("Title");
+		pg.addColumn(PublicationsView::getDescription).setHeader(new GridHeader("Description"));
+		pg.addColumn(PublicationsView::getGenre).setHeader(new GridHeader("Genre")).setSortProperty("Genre")
+				.setFlexGrow(0).setWidth("120px");
+		pg.addColumn(PublicationsView::getPublisherId).setHeader(new GridHeader("Publisher"))
+				.setSortProperty("Publisher");
+		pg.addColumn(PublicationsView::getAuthorId).setHeader(new GridHeader("Author")).setSortProperty("Author");
+//		pg.addColumn(Publication::getFirstPublishedDate);
+
+		pg.setDataProvider(filterabledp);
+
+		sectionblock.add(pg);
+
+		parent.add(pg);
 	}
 }

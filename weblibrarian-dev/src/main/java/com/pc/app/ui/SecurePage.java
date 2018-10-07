@@ -3,17 +3,17 @@ package com.pc.app.ui;
 import com.pc.app.ui.HtmlC.IconText;
 import com.pc.app.ui.HtmlC.NavigationBar;
 import com.pc.app.ui.frag.Account;
-import com.pc.app.ui.frag.AudioVideoReport;
+import com.pc.app.ui.frag.AudioVideoManager;
 import com.pc.app.ui.frag.InventoryManagment;
 import com.pc.app.ui.frag.MailBox;
-import com.pc.app.ui.frag.PublicationsReport;
+import com.pc.app.ui.frag.PublicationsManager;
 import com.pc.app.ui.frag.ServiceRequest;
 import com.pc.app.ui.frag.UserRegistration;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.HighlightConditions;
@@ -23,10 +23,11 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 @HtmlImport("styles/shared-styles.html")
+@StyleSheet("css/maincss.css")
 @Viewport("user-scalable=no, initial-scale=1.0, shrink-to-fit=no")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @Push
-public class SecurePage extends FlexLayout implements RouterLayout {
+public class SecurePage extends Div implements RouterLayout {
 
 	private static final long serialVersionUID = 5873104864223432186L;
 
@@ -40,16 +41,16 @@ public class SecurePage extends FlexLayout implements RouterLayout {
 
 		sidenavbar.addHeader(applicationLogo);
 
-		Div dashboardtxt = new Div(new Span("DASHBOARDS"));
+		Div dashboardtxt = new Div(new Span("ENTITY"));
 		dashboardtxt.addClassNames("vnav-sectionheader", "navpad");
 
-		RouterLink q = new RouterLink("", PublicationsReport.class);
+		RouterLink q = new RouterLink("", PublicationsManager.class);
 		q.add(new IconText("book.svg", "Publications"));
 		q.setHighlightCondition(HighlightConditions.locationPrefix());
 		q.addClassName("routerlink");
 
-		RouterLink t = new RouterLink("", AudioVideoReport.class);
-		// 
+		RouterLink t = new RouterLink("", AudioVideoManager.class);
+		//
 		t.add(new IconText("film.svg", "Audio / Video"));
 		t.setHighlightCondition(HighlightConditions.locationPrefix());
 		t.addClassName("routerlink");
@@ -64,21 +65,23 @@ public class SecurePage extends FlexLayout implements RouterLayout {
 		x.setHighlightCondition(HighlightConditions.locationPrefix());
 		x.addClassName("routerlink");
 
-		RouterLink y = new RouterLink("Inventory", InventoryManagment.class);
+		RouterLink y = new RouterLink("", InventoryManagment.class);
+		y.add(new IconText("layers-light.svg", "Inventory"));
 		y.setHighlightCondition(HighlightConditions.locationPrefix());
 		y.addClassName("routerlink");
 
-		RouterLink z = new RouterLink("Accounts", Account.class);
+		RouterLink z = new RouterLink("", Account.class);
+		z.add(new IconText("dollar-sign-light.svg", "Accounts"));
 		z.setHighlightCondition(HighlightConditions.locationPrefix());
 		z.addClassNames("routerlink");
 
 		RouterLink r = new RouterLink("", ServiceRequest.class);
-		r.add(new IconText("alert-octagon.svg", "Requests / Returns"));
+		r.add(new IconText("alert-octagon-light.svg", "Requests / Returns"));
 		r.setHighlightCondition(HighlightConditions.locationPrefix());
 		r.addClassNames("routerlink");
 
 		RouterLink m = new RouterLink("", MailBox.class);
-		m.add(new IconText("mail.svg", "MailBox"));
+		m.add(new IconText("mail-light.svg", "MailBox"));
 		m.setHighlightCondition(HighlightConditions.locationPrefix());
 		m.addClassNames("routerlink");
 
@@ -88,8 +91,9 @@ public class SecurePage extends FlexLayout implements RouterLayout {
 		blockspacer.addClassName("blockspacer");
 		sidenavbar.addSection(blockspacer);
 
-		Button signout = new Button("Sign Out");
-		signout.getElement().setAttribute("theme", "tertiary error");
+		Anchor signout = new Anchor("logout", "");
+		signout.add(new IconText("log-out-light.svg", "Sign Out"));
+		signout.addClassNames("routerlink");
 		sidenavbar.addFooter(signout);
 
 		add(sidenavbar);

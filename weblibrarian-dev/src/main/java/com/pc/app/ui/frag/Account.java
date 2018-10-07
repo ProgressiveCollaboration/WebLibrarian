@@ -11,7 +11,7 @@ public class Account extends Fragment {
 	private static final long serialVersionUID = 3837883965132583616L;
 
 	public Account() {
-		setTitleText("Users");
+		setHeaderText("Users");
 	}
 
 }

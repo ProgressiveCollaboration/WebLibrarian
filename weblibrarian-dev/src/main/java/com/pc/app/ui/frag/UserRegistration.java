@@ -7,21 +7,26 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @PageTitle("User Registration")
-@Route(value = "user", layout = BaseFragment.class)
+@Route(value = "users", layout = BaseFragment.class)
 public class UserRegistration extends Fragment {
 
 	private static final long serialVersionUID = 3837883965132583616L;
 
 	public UserRegistration() {
-		setTitleText("User Registration");
+		setHeaderText("User Registration");
 		addContent(new TextField("content"));
 
-		SmallButton adduserbtn = new SmallButton("Add Library User");
+		SmallButton adduserbtn = new SmallButton("Add Library User"); 
+		adduserbtn.addClassName("btn-mr");
 		adduserbtn.addThemeAttr("primary");
 
-		addToolbarComponent(adduserbtn);
+		SmallButton addmgmtuserbtn = new SmallButton("Add Management User");
+		addmgmtuserbtn.addClassName("btn-mr");
+		addmgmtuserbtn.addThemeAttr("primary");
 
-		addFooterComponent(new SmallButton("Footer Button"));
+		addToolbarComponent(adduserbtn, addmgmtuserbtn);
+
+		addFooterComponent(new SmallButton("Print Receipt"));
 	}
 
 }

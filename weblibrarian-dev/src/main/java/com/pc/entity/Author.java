@@ -18,6 +18,8 @@ public class Author extends BaseEntity {
 	private String emailAddress;
 	private String website;
 	private String imageURL;
+	private String wikiLink;
+	private String bioGraphy;
 	private LocalDate dateOfBirth;
 
 	@Override
@@ -94,6 +96,22 @@ public class Author extends BaseEntity {
 		return "Author [firstName=" + firstName + ", LastName=" + LastName + ", gender=" + gender + ", aka=" + aka
 				+ ", emailAddress=" + emailAddress + ", website=" + website + ", imageURL=" + imageURL
 				+ ", dateOfBirth=" + dateOfBirth + "]";
+	}
+
+	public String getBioGraphy() {
+		return bioGraphy;
+	}
+
+	public void setBioGraphy(String bioGraphy) {
+		this.bioGraphy = bioGraphy;
+	}
+
+	public String getWikiLink() {
+		return wikiLink;
+	}
+
+	public void setWikiLink(String wikiLink) {
+		this.wikiLink = wikiLink;
 	}
 
 }
