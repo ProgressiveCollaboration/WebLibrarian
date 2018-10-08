@@ -3,8 +3,8 @@ package com.pc.app.ui.frag;
 import org.apache.commons.lang3.StringUtils;
 
 import com.pc.app.ui.BaseFragment;
-import com.pc.app.ui.HtmlC.SVGIcon;
 import com.pc.db.MDB;
+import com.pc.entity.Publication;
 import com.pc.entity.Publisher;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Anchor;
@@ -50,10 +50,8 @@ public class PublisherView extends Fragment implements HasDynamicTitle, HasUrlPa
 
 	private void buildUIfor(Publisher p) {
 
-		RouterLink y = new RouterLink("", InventoryManagment.class, InventoryManagment._publishers);
-		y.addClassName("btn-mr");
-		SVGIcon icon = new SVGIcon("chevron-left.svg");
-		y.add(icon);
+		RouterLink y = new RouterLink("Publishers", InventoryManagment.class, InventoryManagment._publishers);
+		y.getStyle().set("marginRight", "1em").set("color", "rgb(123, 92, 92)");
 
 		setHeaderComponent(new Div(new Text(p.getPublisherName())), y);
 		content.removeAll();
@@ -64,7 +62,8 @@ public class PublisherView extends Fragment implements HasDynamicTitle, HasUrlPa
 
 			Label label = new Label("Wiki");
 			Div wikiText = new Div(label, new Div(new Span(p.getWikiLink())));
-			wikiText.getStyle().set("flexGrow", "1").set("marginLeft", "1em");
+			wikiText.getStyle().set("flexGrow", "1").set("marginLeft", "1em").set("maxHeight", "15em").set("overflowY",
+					"scroll");
 
 			FlexLayout flex = new FlexLayout(new Div(image), wikiText);
 			flex.addClassName("sectionblock");
@@ -114,6 +113,8 @@ public class PublisherView extends Fragment implements HasDynamicTitle, HasUrlPa
 		Tabs tabs = new Tabs();
 		tabs.add(tab2, tab3);
 		tabs.getElement().setAttribute("theme", "small");
+
+		MDB.getDS().find(Publication.class).filter("publisherId", p.getId()).asList();
 
 		content.add(tabs);
 	}

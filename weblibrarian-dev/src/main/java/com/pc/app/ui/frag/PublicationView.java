@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import com.pc.app.ui.BaseFragment;
-import com.pc.app.ui.HtmlC.SVGIcon;
 import com.pc.app.ui.HtmlC.SmallButton;
 import com.pc.db.MDB;
 import com.pc.entity.Author;
@@ -53,11 +52,9 @@ public class PublicationView extends Fragment implements HasDynamicTitle, HasUrl
 	}
 
 	private void buildUIfor(Publication p) {
-
-		RouterLink y = new RouterLink("", InventoryManagment.class, InventoryManagment._publishers);
-		y.addClassName("btn-mr");
-		SVGIcon icon = new SVGIcon("chevron-left.svg");
-		y.add(icon);
+		
+		RouterLink y = new RouterLink("Publishers", InventoryManagment.class, InventoryManagment._publications);
+		y.getStyle().set("marginRight", "1em").set("color", "rgb(123, 92, 92)"); 
 
 		setHeaderComponent(new Div(new Text(p.getTitle())), y);
 		content.removeAll();

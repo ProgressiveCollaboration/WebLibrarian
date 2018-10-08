@@ -26,6 +26,9 @@ body {
 	flex-shrink: 0;
 	overflow-y: auto;
 	color: white;
+	transition: 0.25s;
+	white-space: nowrap;
+    overflow: hidden;
 }
 
 .vnav-headerbanner {
@@ -72,6 +75,12 @@ body {
 	margin-right: 0.5em;
 }
 
+@media screen and (max-width: 1000px) {
+  .icontext > span { display: none; } 
+  .sidenav { width: 60px; }
+  .applicationlogo, .vnav-sectionheader { opacity: 0; }
+}
+
 .icontext {
 	display: contents;
 	color: white;
@@ -93,6 +102,10 @@ body {
 
 a {
 	text-decoration: none !important;
+}
+
+a:hover {
+	color:black;
 }
 
 label {

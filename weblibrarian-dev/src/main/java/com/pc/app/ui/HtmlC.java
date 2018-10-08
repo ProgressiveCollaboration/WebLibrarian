@@ -2,7 +2,6 @@ package com.pc.app.ui;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -46,7 +45,7 @@ public class HtmlC {
 		private static final long serialVersionUID = 1L;
 
 		public IconText(String icon, String text) {
-			add(new SVGIcon(icon), new Text(text));
+			add(new SVGIcon(icon), new Span(text));
 			addClassName("icontext");
 		}
 	}

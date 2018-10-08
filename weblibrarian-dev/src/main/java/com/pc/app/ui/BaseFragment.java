@@ -4,12 +4,12 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.RouterLayout;
 
-@ParentLayout(SecurePage.class) 
+@ParentLayout(SecurePage.class)
 public class BaseFragment extends FlexLayout implements RouterLayout {
 
 	private static final long serialVersionUID = 1L;
 
 	public BaseFragment() {
-		getStyle().set("flexGrow", "1").set("flexDirection", "column");
+		getStyle().set("flexGrow", "1").set("flexDirection", "column").set("overflowY", "scroll");
 	}
 }
