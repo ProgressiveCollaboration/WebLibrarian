@@ -25,8 +25,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @HtmlImport("styles/shared-styles.html")
 @StyleSheet("css/maincss.css")
 @Viewport("user-scalable=no, initial-scale=1.0, shrink-to-fit=no")
-@Theme(value = Lumo.class, variant = Lumo.LIGHT)
 @Push
+@Theme(value = Lumo.class, variant = Lumo.LIGHT) 
 public class SecurePage extends Div implements RouterLayout {
 
 	private static final long serialVersionUID = 5873104864223432186L;
@@ -37,11 +37,14 @@ public class SecurePage extends Div implements RouterLayout {
 		addClassNames("securepage");
 
 		Span applicationLogo = new Span("WebLibrarian");
-		applicationLogo.addClassNames("applicationlogo", "navpad");
+		applicationLogo.addClassNames("applicationlogo", "navpad", "hideonsmall");
 
 		sidenavbar.addHeader(applicationLogo);
 
-		Div dashboardtxt = new Div(new Span("ENTITY"));
+		Span sentity = new Span("ENTITY");
+		sentity.setClassName("hideonsmall");
+
+		Div dashboardtxt = new Div(sentity);
 		dashboardtxt.addClassNames("vnav-sectionheader", "navpad");
 
 		RouterLink q = new RouterLink("", PublicationsManager.class);
@@ -57,7 +60,10 @@ public class SecurePage extends Div implements RouterLayout {
 
 		sidenavbar.addSection(dashboardtxt, t, q);
 
-		Div administrationtxt = new Div(new Span("ADMINISTRATION"));
+		Span sadmin = new Span("ADMINISTRATION");
+		sadmin.setClassName("hideonsmall");
+
+		Div administrationtxt = new Div(sadmin);
 		administrationtxt.addClassNames("vnav-sectionheader", "navpad");
 
 		RouterLink x = new RouterLink("", UserRegistration.class);

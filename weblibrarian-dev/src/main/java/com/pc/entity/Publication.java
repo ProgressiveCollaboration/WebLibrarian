@@ -17,6 +17,8 @@ public class Publication extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public static String _title = "title";
+
 	private String binding;
 	private String description;
 	private String edition;

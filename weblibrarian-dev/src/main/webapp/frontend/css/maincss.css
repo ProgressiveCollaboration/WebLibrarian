@@ -5,11 +5,19 @@ html {
 	/* font-family: Segoe UI; */
 }
 
+
 body {
 	/* Avoid horizontal scrollbars, mainly on IE11 */
 	overflow-x: hidden;
 	background-color: var(--lumo-contrast-5pct);
+	transition: 0.2s;
 }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background-color: var(--lumo-contrast-10pct);} 
+::-webkit-scrollbar-thumb { background-color: var(--lumo-contrast-20pct); border-radius: var(--lumo-border-radius);} 
+::-webkit-scrollbar-thumb:hover { background-color: var(--lumo-contrast-60pct); border-radius: var(--lumo-border-radius); }		
+
 
 .securepage {
 	display: flex;
@@ -25,6 +33,7 @@ body {
 	font-weight: 600;
 	flex-shrink: 0;
 	overflow-y: auto;
+	overflow-x: hidden; 
 	color: white;
 	transition: 0.25s;
 	white-space: nowrap;
@@ -48,6 +57,7 @@ body {
 
 .vnav-midsection {
 	overflow-y: auto;
+	overflow-x: hidden; 
 	flex-grow: 1;
 }
 
@@ -60,6 +70,7 @@ body {
 	color: #969696;
 	font-size: var(--lumo-font-size-xs);
 	padding-left: 3px;
+	height: 2rem;
 }
 
 .sidenav>.blockspacer {
@@ -75,8 +86,12 @@ body {
 	margin-right: 0.5em;
 }
 
+.hideonsmall {
+	 
+}
+
 @media screen and (max-width: 1000px) {
-  .icontext > span { display: none; } 
+  .hideonsmall { display: none; } 
   .sidenav { width: 60px; }
   .applicationlogo, .vnav-sectionheader { opacity: 0; }
 }
@@ -88,6 +103,10 @@ body {
 
 .btn-mr {
 	margin-right: var(--lumo-space-s);
+}
+
+.btn-ml {
+	margin-left: var(--lumo-space-s);
 }
 
 .sectionblock {

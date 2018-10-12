@@ -6,7 +6,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.textfield.TextField;
 
 public class HtmlC {
 
@@ -40,12 +42,25 @@ public class HtmlC {
 
 	}
 
+	public static class TextFieldClearButton extends Button {
+
+		private static final long serialVersionUID = 1L;
+
+		public TextFieldClearButton(TextField searchbox) {
+			getElement().setAttribute("theme", "tertiary-inline");
+			setIcon(new Icon("lumo", "cross"));
+			addClickListener(c -> searchbox.clear());
+		}
+	}
+
 	public static class IconText extends Div {
 
 		private static final long serialVersionUID = 1L;
 
 		public IconText(String icon, String text) {
-			add(new SVGIcon(icon), new Span(text));
+			Span span = new Span(text);
+			span.setClassName("hideonsmall");
+			add(new SVGIcon(icon), span);
 			addClassName("icontext");
 		}
 	}
@@ -119,10 +134,19 @@ public class HtmlC {
 			setText(text);
 		}
 
-		public SmallButton addThemeAttr(String attr) {
+		public SmallButton theme(String attr) {
 			String theme = getElement().getAttribute("theme");
 			getElement().setAttribute("theme", theme + " " + attr);
 			return this;
+		}
+
+		public SmallButton onclick(Click clk) {
+			addClickListener(c -> clk.onclick());
+			return this;
+		}
+
+		public interface Click {
+			void onclick();
 		}
 
 	}

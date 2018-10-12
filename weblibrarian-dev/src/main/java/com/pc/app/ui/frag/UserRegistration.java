@@ -18,11 +18,11 @@ public class UserRegistration extends Fragment {
 
 		SmallButton adduserbtn = new SmallButton("Add Library User"); 
 		adduserbtn.addClassName("btn-mr");
-		adduserbtn.addThemeAttr("primary");
+		adduserbtn.theme("primary");
 
 		SmallButton addmgmtuserbtn = new SmallButton("Add Management User");
 		addmgmtuserbtn.addClassName("btn-mr");
-		addmgmtuserbtn.addThemeAttr("primary");
+		addmgmtuserbtn.theme("primary");
 
 		addToolbarComponent(adduserbtn, addmgmtuserbtn);
 

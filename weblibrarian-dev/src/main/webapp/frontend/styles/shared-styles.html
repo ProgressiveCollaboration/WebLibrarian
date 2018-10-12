@@ -30,8 +30,27 @@
     </template>
 </dom-module>
 
+<dom-module id="vban" theme-for="vaadin-grid">
+   <template> 
+       <style>
+        :host {font-size: var(--lumo-font-size-s);} 
+		::-webkit-scrollbar { width: 5px; height: 5px; }
+		::-webkit-scrollbar-track { background-color: var(--lumo-contrast-10pct); } 
+		::-webkit-scrollbar-thumb { background-color: var(--lumo-contrast-20pct); border-radius: var(--lumo-border-radius);} 
+		::-webkit-scrollbar-thumb:hover { background-color: var(--lumo-contrast-60pct); border-radius: var(--lumo-border-radius); }		
+       </style>
+   </template>
+</dom-module>
+
 <custom-style>
     <style include="view-styles">
+    
+    .ml-2 {
+    	margin-left: 1em;'
+    } 
+    .mt-2 {
+    	margin-top: 1em;'
+    }
         
     </style>
 

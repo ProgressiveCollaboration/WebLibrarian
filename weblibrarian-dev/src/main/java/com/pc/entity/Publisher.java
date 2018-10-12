@@ -8,7 +8,7 @@ import com.pc.db.MDB;
 public class Publisher extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-
+ 
 	public static final String _publisherName = "publisherName";
 
 	private String publisherName;

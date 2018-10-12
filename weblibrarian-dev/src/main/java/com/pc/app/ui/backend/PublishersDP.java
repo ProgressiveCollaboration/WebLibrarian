@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.pc.db.MDB;
-import com.pc.entity.BaseEntity;
-import com.pc.entity.Publication;
 import com.pc.entity.Publisher;
 import com.vaadin.flow.data.provider.AbstractBackEndDataProvider;
 import com.vaadin.flow.data.provider.Query;
@@ -32,8 +30,8 @@ public class PublishersDP extends AbstractBackEndDataProvider<Publisher, String>
 		int limit = query.getLimit();
 		int offset = query.getOffset();
 		List<QuerySortOrder> sortorder = query.getSortOrders();
-		String sortBy = Publication._createdDate;
-		boolean sortAscending = false;
+		String sortBy = Publisher._publisherName;
+		boolean sortAscending = true;
 		if (sortorder.size() > 0) {
 			QuerySortOrder so = sortorder.get(0);
 			sortBy = so.getSorted();
@@ -45,8 +43,8 @@ public class PublishersDP extends AbstractBackEndDataProvider<Publisher, String>
 	@Override
 	protected int sizeInBackEnd(Query<Publisher, String> q) {
 		List<QuerySortOrder> sortorder = q.getSortOrders();
-		String sortBy = BaseEntity._createdDate;
-		boolean sortAscending = false;
+		String sortBy = Publisher._publisherName;
+		boolean sortAscending = true;
 		if (sortorder.size() > 0) {
 			QuerySortOrder so = sortorder.get(0);
 			sortBy = so.getSorted();

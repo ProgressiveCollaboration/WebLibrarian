@@ -6,20 +6,22 @@ import com.pc.app.ui.BaseFragment;
 import com.pc.app.ui.HtmlC.FlexMe;
 import com.pc.app.ui.HtmlC.GridHeader;
 import com.pc.app.ui.HtmlC.SmallButton;
+import com.pc.app.ui.HtmlC.TextFieldClearButton;
 import com.pc.app.ui.backend.PublicationsDP;
 import com.pc.app.ui.backend.PublicationsDP.PublicationsView;
 import com.pc.app.ui.backend.PublishersDP;
+import com.pc.app.ui.dialog.BasicDialog.BeanAction;
+import com.pc.app.ui.dialog.EditPublisherDialog;
 import com.pc.entity.Publisher;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.IronIcon;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
@@ -45,6 +47,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 		Tab tab2 = new Tab("Authors");
 		Tab tab3 = new Tab("Publications");
 		tabs.add(tab1, tab2, tab3);
+		tabs.getElement().setAttribute("theme", "small");
 
 		tabs.addSelectedChangeListener(lstn -> {
 			switch (tabs.getSelectedIndex()) {
@@ -113,6 +116,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 	private void buildforAuthors(Div parent) {
 
 		TextField searchbox = new TextField();
+		searchbox.setValueChangeMode(ValueChangeMode.EAGER);
 		searchbox.setPrefixComponent(new Icon("lumo", "search"));
 		searchbox.setPlaceholder("Search By Author Name");
 		searchbox.getElement().setAttribute("theme", "small");
@@ -122,7 +126,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 		// filterabledp.setFilter(vc.getValue()));
 
 		SmallButton addpublicationbtn = new SmallButton("Add Author");
-		addpublicationbtn.addThemeAttr("primary");
+		addpublicationbtn.theme("primary");
 
 		Div btngroup = new Div(addpublicationbtn);
 
@@ -137,17 +141,25 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 		ConfigurableFilterDataProvider<Publisher, Void, String> fdp = new PublishersDP().withConfigurableFilter();
 
 		TextField searchbox = new TextField();
+		searchbox.setValueChangeMode(ValueChangeMode.EAGER);
 		searchbox.setPrefixComponent(new Icon("lumo", "search"));
+		searchbox.setSuffixComponent(new TextFieldClearButton(searchbox));
 		searchbox.setPlaceholder("Search By Publisher Name");
 		searchbox.getElement().setAttribute("theme", "small");
 		searchbox.getStyle().set("flexGrow", "1");
 		searchbox.addClassName("btn-mr");
 		searchbox.addValueChangeListener(vc -> fdp.setFilter(vc.getValue()));
 
-		SmallButton addpublicationbtn = new SmallButton("Add Publisher");
-		addpublicationbtn.addThemeAttr("primary");
+		SmallButton addpublisher = new SmallButton("Add Publisher");
+		addpublisher.theme("primary");
 
-		Div btngroup = new Div(addpublicationbtn);
+		addpublisher.onclick(() -> new EditPublisherDialog(new Publisher(), BeanAction.NEW, (bean) -> {
+			bean.save();
+			fdp.setFilter(null);
+			// fdp.refreshAll();
+			return true;
+		}).open());
+		Div btngroup = new Div(addpublisher);
 
 		FlexMe sectionblock = new FlexMe(searchbox, btngroup);
 		sectionblock.setClassName("sectionblock");
@@ -159,29 +171,31 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 		pg.addComponentColumn(pub -> {
 			SmallButton open = new SmallButton(pub.getPublisherName());
-			open.addThemeAttr("tertiary-inline contrast");
+			open.theme("tertiary-inline contrast");
 			open.addClickListener(c -> open.getUI().get().navigate(PublisherView.class, pub.getId()));
 			return open;
 		}).setHeader(new GridHeader("Publisher Name")).setSortProperty(Publisher._publisherName);
 
 		pg.addColumn(Publisher::getPublisherWebsite).setHeader(new GridHeader("Website"));
-		pg.addColumn(Publisher::getWikiLink).setHeader(new GridHeader("Wiki"));
 
 		pg.addComponentColumn(fex -> {
 
 			SmallButton edit = new SmallButton();
-			edit.addThemeAttr("contrast").setIcon(new IronIcon("lumo", "edit"));
+			edit.theme("contrast").setIcon(new IronIcon("lumo", "edit"));
 			edit.addClassName("btn-mr");
-			edit.addClickListener(click -> {
-				Dialog dg = new Dialog();
-				dg.add(new Span("ABCD"));
-				dg.open();
-			});
+			edit.addClickListener(click -> new EditPublisherDialog(fex, BeanAction.EDIT, (bean) -> {
+				bean.save();
+				fdp.refreshItem(fex);
+				return true;
+			}).open());
 
 			SmallButton delete = new SmallButton();
-			delete.addThemeAttr("icon error").setIcon(new IronIcon("lumo", "cross"));
-			delete.addClickListener(click -> {
-			});
+			delete.theme("icon error").setIcon(new IronIcon("lumo", "cross"));
+			delete.addClickListener(click -> new EditPublisherDialog(fex, BeanAction.DELETE, (bean) -> {
+				bean.delete();
+				fdp.setFilter(null);
+				return true;
+			}).open());
 
 			Div fl = new Div(edit, delete);
 			fl.getStyle().set("textAlign", "right");
@@ -200,20 +214,20 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 				.withConfigurableFilter();
 
 		TextField searchbox = new TextField();
+		searchbox.setValueChangeMode(ValueChangeMode.EAGER);
 		searchbox.setPrefixComponent(new Icon("lumo", "search"));
 		searchbox.setPlaceholder("Search By Title, ISBN");
 		searchbox.getElement().setAttribute("theme", "small");
 		searchbox.getStyle().set("flexGrow", "1");
 		searchbox.addClassName("btn-mr");
-		// searchbox.addValueChangeListener(vc ->
-		// filterabledp.setFilter(vc.getValue()));
+		searchbox.addValueChangeListener(vc -> filterabledp.setFilter(vc.getValue()));
 
 		SmallButton importbtn = new SmallButton("Import Data");
 		importbtn.addClassName("btn-mr");
 		SmallButton exportbtn = new SmallButton("Export Data");
 		exportbtn.addClassName("btn-mr");
 		SmallButton addpublicationbtn = new SmallButton("Add Publication");
-		addpublicationbtn.addThemeAttr("primary");
+		addpublicationbtn.theme("primary");
 
 		Div btngroup = new Div(importbtn, exportbtn, addpublicationbtn);
 
@@ -228,7 +242,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 		pg.addComponentColumn(pub -> {
 			SmallButton open = new SmallButton(pub.getISBN_10());
-			open.addThemeAttr("tertiary-inline contrast");
+			open.theme("tertiary-inline contrast");
 			open.addClickListener(c -> open.getUI().get().navigate(PublicationView.class, pub.getId()));
 			return open;
 		}).setHeader(new GridHeader("ISBN-10"))//

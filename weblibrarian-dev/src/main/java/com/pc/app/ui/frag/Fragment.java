@@ -5,6 +5,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 
+
 public class Fragment extends FlexLayout {
 
 	private static final long serialVersionUID = 1L;
