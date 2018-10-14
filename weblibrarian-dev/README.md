@@ -1,8 +1,5 @@
 # Web Librarian Application 
-
-This is a Vaadin web application.
  
-
 ## Prerequisites
 
 The project can be imported into the IDE of your choice, with Java 8 installed, as a Maven project.
