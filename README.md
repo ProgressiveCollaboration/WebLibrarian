@@ -2,4 +2,4 @@
  
 ## Prerequisites 
 java 8+
-Vaadin 10+
+Vaadin 10
