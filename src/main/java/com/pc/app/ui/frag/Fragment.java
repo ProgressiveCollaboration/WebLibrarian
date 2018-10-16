@@ -12,7 +12,7 @@ public class Fragment extends FlexLayout {
 
 	private FlexMe headerflx = new FlexMe();
 	private Div titlebar = new Div();
-	private Div midcontent = new Div();
+	private FlexLayout midcontent = new FlexLayout();
 	private Div toolbar = new Div();
 	private Div footer = new Div();
 
@@ -22,7 +22,7 @@ public class Fragment extends FlexLayout {
 		titlebar.addClassName("fragmenttitle");
 		headerflx.add(titlebar);
 
-		midcontent.getStyle().set("flexGrow", "1");
+		midcontent.getStyle().set("flexGrow", "1").set("flexDirection", "column");
 
 		add(headerflx, toolbar, midcontent, footer);
 	}

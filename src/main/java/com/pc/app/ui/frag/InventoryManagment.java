@@ -17,6 +17,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.IronIcon;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.textfield.TextField;
@@ -38,7 +39,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 	public static final String _authors = "authors";
 	public static final String _publications = "publications";
 	private Tabs tabs = new Tabs();
-	private Div innercontent = new Div();
+	private FlexLayout innercontent = new FlexLayout();
 
 	public InventoryManagment() {
 		setHeaderText("Inventory");
@@ -63,9 +64,10 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 			}
 
 		});
+		
+		innercontent.getStyle().set("flexGrow", "1").set("flexDirection", "column");
 
-		addContent(tabs, innercontent);
-		addFooterComponent(new SmallButton("Footer Button"));
+		addContent(tabs, innercontent); 
 	}
 
 	@Override
@@ -113,7 +115,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 	}
 
-	private void buildforAuthors(Div parent) {
+	private void buildforAuthors(FlexLayout parent) {
 
 		TextField searchbox = new TextField();
 		searchbox.setValueChangeMode(ValueChangeMode.EAGER);
@@ -136,7 +138,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 	}
 
-	private void buildforPublishers(Div parent) {
+	private void buildforPublishers(FlexLayout parent) {
 
 		ConfigurableFilterDataProvider<Publisher, Void, String> fdp = new PublishersDP().withConfigurableFilter();
 
@@ -208,7 +210,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 	}
 
-	private void buildforPublications(Div parent) {
+	private void buildforPublications(FlexLayout parent) {
 
 		ConfigurableFilterDataProvider<PublicationsView, Void, String> filterabledp = new PublicationsDP()
 				.withConfigurableFilter();
