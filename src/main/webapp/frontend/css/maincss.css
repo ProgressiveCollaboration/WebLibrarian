@@ -25,6 +25,10 @@ body {
 	height: 100vh;
 }
 
+.padded1 {
+	padding: 1em;
+}
+
 .sidenav {
 	width: 220px;
 	background-color: #201f24;

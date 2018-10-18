@@ -1,8 +1,12 @@
 package com.pc.app.ui;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
@@ -11,6 +15,9 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class HtmlC {
+	
+	public static List<ResponsiveStep> steps421 = Arrays.asList(new ResponsiveStep("18em", 1),
+			new ResponsiveStep("25em", 2), new ResponsiveStep("45em", 4));
 
 	public static class FlexMe extends FlexLayout {
 

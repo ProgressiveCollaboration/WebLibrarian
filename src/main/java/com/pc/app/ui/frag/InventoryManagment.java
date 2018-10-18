@@ -64,19 +64,15 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 			}
 
 		});
-		
-		innercontent.getStyle().set("flexGrow", "1").set("flexDirection", "column");
 
-		addContent(tabs, innercontent); 
+		innercontent.getStyle().set("flexGrow", "1").set("flexDirection", "column");
+		addContent(tabs, innercontent);
 	}
 
 	@Override
 	public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
-
 		if (StringUtils.isBlank(parameter))
 			parameter = _publications;
-
-		System.out.println("buildPageContent -> " + parameter);
 
 		switch (parameter) {
 		case _publishers:
@@ -95,12 +91,10 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 		default:
 			break;
 		}
-
 	}
 
 	void buildPageContent(int index) {
 		innercontent.removeAll();
-
 		switch (index) {
 		case 0:
 			buildforPublishers(innercontent);
@@ -112,7 +106,6 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 			buildforPublications(innercontent);
 			break;
 		}
-
 	}
 
 	private void buildforAuthors(FlexLayout parent) {

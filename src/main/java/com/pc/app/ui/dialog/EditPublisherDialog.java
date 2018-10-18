@@ -11,40 +11,36 @@ public class EditPublisherDialog extends BasicDialog {
 	private static final long serialVersionUID = -2520361391158861741L;
 
 	public EditPublisherDialog(Publisher bean, BeanAction beanAction, Action<Publisher> action) {
-		super(bean, beanAction);
+		super(beanAction);
 		setTitle("Publisher");
-		setSize(DialogSize.LARGE);
+		setSize(DialogSize.MID);
 
 		Binder<Publisher> binder = new Binder<>(Publisher.class);
 		binder.setBean(new Publisher());
 
-		FormLayout ftml = new FormLayout();
-
 		TextField tf0 = new TextField("Publisher Name");
 		binder.forField(tf0).asRequired().bind("publisherName");
-		ftml.add(tf0);
 
 		TextField tf1 = new TextField("Publisher Website");
 		binder.forField(tf1).asRequired().bind("publisherWebsite");
-		ftml.add(tf1);
 
 		TextField tf2 = new TextField("Publisher Wiki Link");
 		binder.forField(tf2).bind("wikiLink");
-		ftml.add(tf2);
 
 		TextField tf3 = new TextField("Copyright Notice");
 		binder.forField(tf3).bind("copyright");
-		ftml.add(tf3);
 
 		TextField tf4 = new TextField("Image Url");
 		binder.forField(tf4).bind("imageUrl");
-		ftml.add(tf4);
 
 		binder.readBean(bean);
-		setContent(ftml);
+		binder.setReadOnly(beanAction == BeanAction.DELETE || beanAction == BeanAction.VIEW);
+
+		setContent(new FormLayout(tf0, tf1, tf2, tf3, tf4));
 
 		if (beanAction != BeanAction.VIEW) {
-			addFormComponent(new SmallButton("Clear").onclick(() -> binder.readBean(new Publisher())));
+			if (beanAction == BeanAction.NEW || beanAction == BeanAction.EDIT)
+				addFormComponent(new SmallButton("Clear").onclick(() -> binder.readBean(new Publisher())));
 
 			addTerminalComponent(new SmallButton(beanAction == BeanAction.DELETE ? "Delete" : "Save")
 					.theme(beanAction == BeanAction.DELETE ? "primary error" : "primary").onclick(() -> {

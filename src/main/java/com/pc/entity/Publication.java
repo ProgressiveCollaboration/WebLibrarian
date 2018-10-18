@@ -34,7 +34,7 @@ public class Publication extends BaseEntity {
 	private List<String> imageURL = new ArrayList<>(1);
 	private String publisherId;
 	private String releaseCycle; // LOV publication_releasecycle
-	private ShippingInformation shippingInformation;
+	private ShippingInformation shippingInformation = new ShippingInformation();
 	private String title;
 	private String language;
 

@@ -21,7 +21,7 @@ public class BasicDialog extends Dialog {
 	final Div footerflex = new Div();
 	final FlexLayout footdiv = new FlexLayout(footerflex);
 
-	public <T extends BaseEntity> BasicDialog(T bean, BeanAction actiontype) {
+	public BasicDialog(BeanAction actiontype) {
 
 		header.getStyle().set("fontWeight", "600").set("fontSize", "var(--lumo-font-size-l)");
 		headerflex.add(header);
@@ -36,10 +36,6 @@ public class BasicDialog extends Dialog {
 			cancel.addClassName("ml-2");
 			cancel.addClickListener(e -> close());
 			footdiv.add(cancel);
-		}
-
-		if (actiontype == BeanAction.DELETE) {
-
 		}
 
 		setSize(DialogSize.MID);
@@ -77,11 +73,11 @@ public class BasicDialog extends Dialog {
 	}
 
 	void addTerminalComponent(Component... components) {
-		for (Component component : components) {			 
+		for (Component component : components) {
 			Div dv = new Div(component);
 			dv.addClassName("btn-ml");
 			footdiv.add(dv);
-		} 
+		}
 	}
 
 	public enum BeanAction {
