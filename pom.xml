@@ -65,11 +65,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.teemusa</groupId>
-            <artifactId>flexlayout</artifactId>
-        </dependency>
+        </dependency> 
     </dependencies>
 
     <dependencyManagement>
