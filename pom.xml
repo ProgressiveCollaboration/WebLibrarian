@@ -2,14 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>progressiveCollabo</groupId>
-    <artifactId>weblibrarian</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>weblibrarian</name>
-    <description>Web Librarian</description>
+<groupId>com.pc</groupId>
+<artifactId>weblibrarian</artifactId>
+<name>WebLibrarian</name>
+<version>1.0-SNAPSHOT</version>
+<packaging>war</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <vaadin.version>10.0.5</vaadin.version>
+        <vaadin.version>11.0.1</vaadin.version>
     </properties>
 
     <dependencies>
@@ -65,11 +62,8 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.teemusa</groupId>
-            <artifactId>flexlayout</artifactId>
-        </dependency>
+        </dependency> 
+             
     </dependencies>
 
     <dependencyManagement>
