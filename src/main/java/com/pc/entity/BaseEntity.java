@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.PrePersist;
 
@@ -85,8 +86,8 @@ public class BaseEntity implements Serializable {
 	public LocalDateTime getArchivedDate() {
 		return archivedDate;
 	}
-
-	private void setUuid(String uuid) {
+	
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
 
@@ -120,4 +121,10 @@ public class BaseEntity implements Serializable {
 	public String IdPrefix() {
 		return "";
 	}
+	
+	public <E extends BaseEntity> String persist(E entity) {
+		MDB.getDS().save(entity);
+		return entity.getId();
+	}
+	
 }

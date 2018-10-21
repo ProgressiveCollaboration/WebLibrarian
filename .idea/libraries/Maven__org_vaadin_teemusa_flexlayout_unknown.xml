@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.vaadin.teemusa:flexlayout:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/vaadin/teemusa/flexlayout/unknown/flexlayout-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/vaadin/teemusa/flexlayout/unknown/flexlayout-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/vaadin/teemusa/flexlayout/unknown/flexlayout-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
