@@ -2,8 +2,15 @@ package com.pc.app.ui;
 
 import com.pc.app.ui.HtmlC.IconText;
 import com.pc.app.ui.HtmlC.NavigationBar;
-import com.pc.app.ui.frag.*;
-import com.pc.entity.Author;
+import com.pc.app.ui.frag.Account;
+import com.pc.app.ui.frag.AudioVideoManager;
+import com.pc.app.ui.frag.AuthorsManager;
+import com.pc.app.ui.frag.InventoryManagment;
+import com.pc.app.ui.frag.MailBox;
+import com.pc.app.ui.frag.PublicationsManager;
+import com.pc.app.ui.frag.PublishersManager;
+import com.pc.app.ui.frag.ServiceRequest;
+import com.pc.app.ui.frag.UserRegistration;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Anchor;
@@ -18,8 +25,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 @HtmlImport("styles/shared-styles.html")
-@StyleSheet("css/maincss.css")
-@StyleSheet("css/bootstrap.min.css")
+@StyleSheet("css/maincss.css") 
 @Viewport("user-scalable=no, initial-scale=1.0, shrink-to-fit=no")
 @Push
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)

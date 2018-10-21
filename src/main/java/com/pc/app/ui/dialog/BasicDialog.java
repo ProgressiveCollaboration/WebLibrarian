@@ -18,15 +18,15 @@ public class BasicDialog extends Dialog {
 	final Span header = new Span();
 	final FlexMe headerflex = new FlexMe();
 	final Div contentdiv = new Div();
-	final Div footerflex = new Div();
-	final FlexLayout footdiv = new FlexLayout(footerflex);
+	final FlexLayout formComponentFlex = new FlexLayout();
+	final FlexLayout footdiv = new FlexLayout(formComponentFlex);
 
 	public BasicDialog(BeanAction actiontype) {
 
 		header.getStyle().set("fontWeight", "600").set("fontSize", "var(--lumo-font-size-l)");
 		headerflex.add(header);
 
-		footerflex.getStyle().set("flexGrow", "1");
+		formComponentFlex.getStyle().set("flexGrow", "1");
 		footdiv.addClassName("mt-2");
 		footdiv.setJustifyContentMode(JustifyContentMode.END);
 		footdiv.setAlignItems(Alignment.CENTER);
@@ -42,13 +42,13 @@ public class BasicDialog extends Dialog {
 		add(headerflex, contentdiv, footdiv);
 	}
 
-	void setSize(DialogSize size) {
+	protected void setSize(DialogSize size) {
 		switch (size) {
 		case LARGE:
-			contentdiv.getStyle().set("maxWidth", "800px");
+			contentdiv.getStyle().set("maxWidth", "900px");
 			break;
 		case MID:
-			contentdiv.getStyle().set("maxWidth", "400px");
+			contentdiv.getStyle().set("maxWidth", "500px");
 			break;
 		default:
 			contentdiv.getStyle().set("maxWidth", "300px");
@@ -56,23 +56,23 @@ public class BasicDialog extends Dialog {
 		}
 	}
 
-	void setTitle(String text) {
+	public void setTitle(String text) {
 		header.setText(text);
 	}
 
-	void setContent(Component component) {
+	public void setContent(Component component) {
 		contentdiv.add(component);
 	}
 
-	void addFormComponent(Component... components) {
+	public void addFormComponent(Component... components) {
 		for (Component component : components) {
 			Div dv = new Div(component);
 			dv.addClassName("btn-mr");
-			footerflex.add(dv);
+			formComponentFlex.add(dv);
 		}
 	}
 
-	void addTerminalComponent(Component... components) {
+	public void addTerminalComponent(Component... components) {
 		for (Component component : components) {
 			Div dv = new Div(component);
 			dv.addClassName("btn-ml");

@@ -1,6 +1,6 @@
 package com.pc.app.ui.dialog;
 
-import com.pc.enums.DialogAction;
+import com.pc.app.ui.dialog.BasicDialog.BeanAction;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -21,7 +21,7 @@ public class MDialog extends Dialog
     private final Div contentdiv = new Div();
     private final Div footerflex = new Div();
     
-    public MDialog(DialogAction actiontype)
+    public MDialog(BeanAction actiontype)
     {
         
         header = new Span();
@@ -35,7 +35,7 @@ public class MDialog extends Dialog
         footdiv.setJustifyContentMode(JustifyContentMode.END);
         footdiv.setAlignItems(Alignment.CENTER);
         
-        if (actiontype != DialogAction.VIEW)
+        if (actiontype != BeanAction.VIEW)
         {
             Button cancel = new Button("Cancel");
             cancel.getElement().setAttribute("theme", "small");

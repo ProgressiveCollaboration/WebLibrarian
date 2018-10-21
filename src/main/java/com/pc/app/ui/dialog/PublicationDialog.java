@@ -1,11 +1,16 @@
-package com.pc.app.ui.cruds;
+package com.pc.app.ui.dialog;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.pc.app.ui.NumberTextField;
-import com.pc.app.ui.dialog.MDialog;
+import com.pc.app.ui.cruds.AddEntityDiv;
+import com.pc.app.ui.cruds.GenericCRUD;
+import com.pc.app.ui.dialog.BasicDialog.BeanAction;
 import com.pc.db.MDB;
 import com.pc.entity.Author;
 import com.pc.entity.Publication;
-import com.pc.enums.DialogAction;
 import com.pc.enums.PublicationType;
 import com.pc.enums.ReleaseCycle;
 import com.pc.utils.ComboBoxManager;
@@ -15,16 +20,11 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PublicationDialog extends MDialog
 {
@@ -33,7 +33,7 @@ public class PublicationDialog extends MDialog
     VerticalLayout authorsLayout = new VerticalLayout();
     private Publication pBean;
     
-    public PublicationDialog(final Publication pBean, DialogAction action, GenericCRUD.OnAction onaction)
+    public PublicationDialog(final Publication pBean, BeanAction action, GenericCRUD.OnAction onaction)
     {
         super(action);
         
@@ -141,9 +141,9 @@ public class PublicationDialog extends MDialog
         pBinder.readBean(pBean);
     
         // all fields will be locked if viewing or in delete mode
-        pBinder.setReadOnly(action == DialogAction.DELETE || action == DialogAction.VIEW);
+        pBinder.setReadOnly(action == BeanAction.DELETE || action == BeanAction.VIEW);
     
-        if (action != DialogAction.VIEW)
+        if (action != BeanAction.VIEW)
         {
         
         }
@@ -157,7 +157,7 @@ public class PublicationDialog extends MDialog
         {
             Button btn = new Button(a.getFirstName() + " " + a.getLastName());
             btn.addClickListener(click -> {
-                new AddEntityDiv(a, DialogAction.EDIT, GenericCRUD.EntityAction.AUTHOR, i ->
+                new AddEntityDiv(a, BeanAction.EDIT, GenericCRUD.EntityAction.AUTHOR, i ->
                 {
                     pBean.save();
                     refreshAuthors();
@@ -167,9 +167,9 @@ public class PublicationDialog extends MDialog
         }
     }
     
-    private void openAuthorDialog(Author a, DialogAction action, Binder<Publication> pBinder)
+    private void openAuthorDialog(Author a, BeanAction action, Binder<Publication> pBinder)
     {
-        if (action == DialogAction.NEW)
+        if (action == BeanAction.NEW)
         {
         
         } else

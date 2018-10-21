@@ -199,8 +199,7 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 
 		pg.setDataProvider(fdp);
 		sectionblock.add(pg);
-		parent.add(pg);
-
+		parent.add(pg); 
 	}
 
 	private void buildforPublications(FlexLayout parent) {

@@ -4,5 +4,5 @@ package com.pc.enums;
  * AudioVideo Categories
  */
 public enum AudioVideoType {
-	CASSETTE, VHS, CD, DVD, BLUE_RAY, E_BOOK, AUDIO_BOOK
+	UNKNOWN, CASSETTE, VHS, CD, DVD, BLUE_RAY, E_BOOK, AUDIO_BOOK
 }

@@ -1,16 +1,16 @@
 package com.pc.db;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.pc.entity.*;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.Sort;
@@ -21,6 +21,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.pc.entity.AudioVideo;
+import com.pc.entity.Author;
+import com.pc.entity.LibraryUser;
+import com.pc.entity.Publication;
+import com.pc.entity.Publisher;
 
 @WebListener
 public class MDB implements ServletContextListener {

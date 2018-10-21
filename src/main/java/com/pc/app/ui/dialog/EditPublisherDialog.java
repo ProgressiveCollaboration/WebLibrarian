@@ -45,10 +45,22 @@ public class EditPublisherDialog extends BasicDialog {
 			addTerminalComponent(new SmallButton(beanAction == BeanAction.DELETE ? "Delete" : "Save")
 					.theme(beanAction == BeanAction.DELETE ? "primary error" : "primary").onclick(() -> {
 						if (binder.validate().isOk())
-							if (binder.writeBeanIfValid(bean))
+							if (binder.writeBeanIfValid(bean)) {
+								bean.save();
 								if (action.action(bean))
 									close();
+							}
 					}));
+
+			if (beanAction == BeanAction.EDIT)
+				addFormComponent(new SmallButton("Delete").theme("error").onclick(() -> {
+					new ActionConfirmDialog("Delete Publisher", "Are you sure you want to remove this publisher?",
+							BeanAction.DELETE, () -> {
+								bean.delete();
+								action.action(bean);
+								close();
+							}).open();
+				}));
 		}
 	}
 

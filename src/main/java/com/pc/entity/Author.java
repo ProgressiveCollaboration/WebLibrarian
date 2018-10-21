@@ -11,6 +11,9 @@ public class Author extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String _firstName = "firstName";
+	public static final String _LastName = "LastName";
+
 	private String firstName;
 	private String LastName;
 	private String gender;

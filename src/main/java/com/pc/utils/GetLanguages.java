@@ -1,6 +1,8 @@
 package com.pc.utils;
 
-import java.util.*;
+import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public interface GetLanguages
 {

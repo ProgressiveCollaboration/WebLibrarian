@@ -1,26 +1,31 @@
 package com.pc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.pc.enums.AudioVideoAspectRatio;
+import com.pc.enums.AudioVideoRating;
 
 public class MetaData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private int season;
-	private int episode;
+	private String season;
+	private String episode;
 	private long mediaDurationSeconds;
 
 	private String genre;
-	private String contentRating; // PG
-	private float mediaRating; // 4/5 stars
-	private float aspectRatio;
-	private List<String> imageURL;
+	private AudioVideoRating contentRating = AudioVideoRating.UNKNOWN; // PG
+	private AudioVideoAspectRatio aspectRatio = AudioVideoAspectRatio.UNKNOWN;
+	private float userRating; // 4/5 stars
 
-	public int getSeason() {
+	private List<String> imageURL = new ArrayList<>();
+
+	public String getSeason() {
 		return season;
 	}
 
-	public int getEpisode() {
+	public String getEpisode() {
 		return episode;
 	}
 
@@ -32,15 +37,11 @@ public class MetaData implements Serializable {
 		return genre;
 	}
 
-	public String getContentRating() {
+	public AudioVideoRating getContentRating() {
 		return contentRating;
 	}
 
-	public float getMediaRating() {
-		return mediaRating;
-	}
-
-	public float getAspectRatio() {
+	public AudioVideoAspectRatio getAspectRatio() {
 		return aspectRatio;
 	}
 
@@ -48,11 +49,11 @@ public class MetaData implements Serializable {
 		return imageURL;
 	}
 
-	public void setSeason(int season) {
+	public void setSeason(String season) {
 		this.season = season;
 	}
 
-	public void setEpisode(int episode) {
+	public void setEpisode(String episode) {
 		this.episode = episode;
 	}
 
@@ -64,20 +65,24 @@ public class MetaData implements Serializable {
 		this.genre = genre;
 	}
 
-	public void setContentRating(String contentRating) {
+	public void setContentRating(AudioVideoRating contentRating) {
 		this.contentRating = contentRating;
 	}
 
-	public void setMediaRating(float mediaRating) {
-		this.mediaRating = mediaRating;
-	}
-
-	public void setAspectRatio(float aspectRatio) {
+	public void setAspectRatio(AudioVideoAspectRatio aspectRatio) {
 		this.aspectRatio = aspectRatio;
 	}
 
 	public void setImageURL(List<String> imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	public float getUserRating() {
+		return userRating;
+	}
+
+	public void setUserRating(float userRating) {
+		this.userRating = userRating;
 	}
 
 }

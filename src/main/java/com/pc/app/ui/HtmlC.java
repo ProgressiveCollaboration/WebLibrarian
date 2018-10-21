@@ -15,7 +15,14 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class HtmlC {
-	
+
+	// grid column widths 
+	public static final String G_W_DATE = "110px"; 
+	public static final String G_W_PHONE = "160px";
+	public static final String G_W_EMAIL = "160px";
+	public static final String G_W_MONEY = "115px";
+	public static final String G_W_MONEY_LG = "150px";
+
 	public static List<ResponsiveStep> steps421 = Arrays.asList(new ResponsiveStep("18em", 1),
 			new ResponsiveStep("25em", 2), new ResponsiveStep("45em", 4));
 

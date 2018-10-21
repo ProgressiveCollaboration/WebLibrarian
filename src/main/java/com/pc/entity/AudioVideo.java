@@ -20,8 +20,8 @@ public class AudioVideo extends BaseEntity {
 	private LocalDate releaseDate;
 	private String title;
 	private String description;
-	private MetaData metaData;
-	private AudioVideoType audioVideoType;
+	private MetaData metaData = new MetaData();
+	private AudioVideoType audioVideoType = AudioVideoType.UNKNOWN;
 	private String language;
 	@Embedded
 	private List<Pricing> pricinginformation = new ArrayList<Pricing>(1);
