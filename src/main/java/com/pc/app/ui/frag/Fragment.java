@@ -6,46 +6,53 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 
 
-public class Fragment extends FlexLayout {
-
+public class Fragment extends FlexLayout
+{
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	private FlexMe headerflx = new FlexMe();
 	private Div titlebar = new Div();
-	private FlexLayout midcontent = new FlexLayout();
+	private Div midcontent = new Div();
 	private Div toolbar = new Div();
 	private Div footer = new Div();
-
-	public Fragment() {
+	
+	public Fragment()
+	{
 		getStyle().set("flexGrow", "1").set("flexShrink", "0").set("flexDirection", "column");
-
+		
 		titlebar.addClassName("fragmenttitle");
 		headerflx.add(titlebar);
-
-		midcontent.getStyle().set("flexGrow", "1").set("flexDirection", "column");
-
+		
+		//midcontent.getStyle().set("flexGrow", "1");
+		
+		//add(toolbar, midcontent, footer);
 		add(headerflx, toolbar, midcontent, footer);
 	}
-
-	void setHeaderText(String title) {
+	
+	void setHeaderText(String title)
+	{
 		titlebar.setText(title);
 	}
-
-	void setHeaderComponent(Component... component) {
+	
+	void setHeaderComponent(Component... component)
+	{
 		titlebar.removeAll();
 		titlebar.add(component);
 	}
-
-	void addToolbarComponent(Component... component) {
+	
+	void addToolbarComponent(Component... component)
+	{
 		toolbar.add(component);
 	}
-
-	void addContent(Component... component) {
+	
+	void addContent(Component... component)
+	{
 		midcontent.add(component);
 	}
-
-	void addFooterComponent(Component... component) {
+	
+	void addFooterComponent(Component... component)
+	{
 		footer.add(component);
 	}
-
 }

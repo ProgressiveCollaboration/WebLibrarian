@@ -1,14 +1,16 @@
 package com.pc.db;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.pc.entity.*;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.Sort;
@@ -19,7 +21,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
-import com.pc.entity.AudioVideo;
 
 @WebListener
 public class MDB implements ServletContextListener {
@@ -36,7 +37,54 @@ public class MDB implements ServletContextListener {
 
 	static MongoClient mongo = null;
 	static Datastore ds = null;
-
+    
+    public static Collection<Publication> getPublications()
+	{
+		return getDS().createQuery(Publication.class).asList();
+	}
+	
+	public static Collection<? extends AudioVideo> getAudioVideo()
+	{
+		return getDS().createQuery(AudioVideo.class).asList();
+	}
+	
+	public static Collection<? extends LibraryUser> getLibraryUsers()
+	{
+		return getDS().createQuery(LibraryUser.class).asList();
+	}
+	
+	public static List<Author> getAuthors()
+	{
+		return getDS().createQuery(Author.class).asList();
+	}
+	
+	public static Author getAuthor(String authorId)
+	{
+		return getDS().createQuery(Author.class).filter("Id", authorId).get();
+	}
+	
+	public static List<Publisher> getPublishers()
+	{
+		return getDS().createQuery(Publisher.class).asList();
+	}
+	
+	public static List<Author> getAuthorsInPublication(Publication pBean)
+	{
+		List<String> authorIds = pBean.getAuthorId();
+		
+		Query<Author> qry = getDS().createQuery(Author.class);
+		
+		//List<? extends CriteriaContainerImpl> crts = authorIds.stream()
+		//		.map(id -> qry.criteria("_id").equal(authorIds.get(id))).collect(Collectors.toList());
+		//qry.or(crts);
+		for(int n=0;n<authorIds.size();n++)
+		{
+			qry.or(qry.criteria("_id").equal(authorIds.get(n)));
+		}
+		
+		return qry.asList();
+	}
+	
 	@Override
 	public void contextInitialized(ServletContextEvent s) {
 		startDB(); 
@@ -105,36 +153,133 @@ public class MDB implements ServletContextListener {
 		return ds;
 	}
 
-	private static Query<AudioVideo> getordersquery(String sort, boolean asc, String filter) {
-		Query<AudioVideo> qry = getDS().find(AudioVideo.class)
-				.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
-//		if (filter != null) {
-//			CriteriaContainer cont = qry.or(qry.criteria(Order._fullName).containsIgnoreCase(filter),
-//					qry.criteria(AudioVideo._clientEmail).containsIgnoreCase(filter));
-//			if (StringUtils.isNumeric(filter))
-//				cont.add(qry.criteria(AudioVideo._orderNumber).equal(Integer.valueOf(filter)));
-//		} else {
-//			// do not show archived data
-		qry.criteria(AudioVideo._archivedDate).equal(null);
-//		}
+	private static Query<Publication> getPublicationsQuery(String sort, boolean asc) {
+		logger.info("getPublicationsQuery>>");
+		Optional<Datastore> ds = Optional.ofNullable(getDS());
+		Query<Publication> qry = null;
+		if(ds.isPresent())
+		{
+			qry = getDS().find(Publication.class)
+					.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
+			//qry.criteria(Publication._archivedDate).equal(null);
+			logger.info("qry>> "+qry.toString());
+		}
+		else
+		{
+			logger.error("Database is not started.");
+		}
+		
+		
 		return qry;
 	}
+	
+	private static Query<Author> getAuthorsQuery(String sort, boolean asc) {
+		logger.info("getAuthorsQuery>>");
+		Optional<Datastore> ds = Optional.ofNullable(getDS());
+		Query<Author> qry = null;
+		if(ds.isPresent())
+		{
+			qry = getDS().find(Author.class)
+					.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
+			//qry.criteria(Publication._archivedDate).equal(null);
+			logger.info("qry>> "+qry.toString());
+		}
+		else
+		{
+			logger.error("Database is not started.");
+		}
+		
+		
+		return qry;
+	}
+	
+	public static List<Author> getAuthors(int offset, int limit, String sort, boolean asc) {
+		logger.info(String.format("getAuthors (%d %d %s %b)\n", offset, limit, sort, asc));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getAuthorsQuery(sort, asc).asList(opt);
+	}
+	
+	public static List<Publication> getPublications(int offset, int limit, String sort, boolean asc) {
+		logger.info(String.format("getPublications (%d %d %s %b)\n", offset, limit, sort, asc));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getPublicationsQuery(sort, asc).asList(opt);
+	}
 
-	public static List<AudioVideo> getaudiovideo(int offset, int limit, String sort, boolean asc, String filter) {
+	public static long countPublications(int offset, int limit, String sort, boolean asc) {
+		logger.info(String.format("count Publications (%d %d %s %b)\n", offset, limit, sort, asc));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getPublicationsQuery(sort, asc).asList(opt).size();
+	}
+	
+	private static Query<Publisher> getPublishersQuery(String sort, boolean asc) {
+		logger.info("getPublishersQuery>>");
+		Optional<Datastore> ds = Optional.ofNullable(getDS());
+		Query<Publisher> qry = null;
+		if(ds.isPresent())
+		{
+			qry = getDS().find(Publisher.class)
+					.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
+			//qry.criteria(Publication._archivedDate).equal(null);
+			logger.info("qry>> "+qry.toString());
+		}
+		else
+		{
+			logger.error("Database is not started.");
+		}
+		
+		
+		return qry;
+	}
+	
+	public static List<Publisher> getPublishers(int offset, int limit, String sort, boolean asc) {
+		logger.info(String.format("getPublisher (%d %d %s %b)\n", offset, limit, sort, asc));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getPublishersQuery(sort, asc).asList(opt);
+	}
+	
+	private static Query<LibraryUser> getLibraryUsersQuery(String sort, boolean asc) {
+		logger.info("getLibraryUsersQuery>>");
+		Optional<Datastore> ds = Optional.ofNullable(getDS());
+		Query<LibraryUser> qry = null;
+		if(ds.isPresent())
+		{
+			qry = getDS().find(LibraryUser.class)
+					.order(asc ? Sort.ascending(sort) : Sort.descending(sort));
+			//qry.criteria(Publication._archivedDate).equal(null);
+			logger.info("qry>> "+qry.toString());
+		}
+		else
+		{
+			logger.error("Database is not started.");
+		}
+		
+		
+		return qry;
+	}
+	
+	public static List<LibraryUser> getLibraryUsers(int offset, int limit, String sort, boolean asc) {
+		logger.info(String.format("getLibraryUser (%d %d %s %b)\n", offset, limit, sort, asc));
+		FindOptions opt = new FindOptions();
+		opt.skip(offset);
+		opt.limit(limit);
+		return getLibraryUsersQuery(sort, asc).asList(opt);
+	}
+	
+	/*public static List<AudioVideo> getaudiovideo(int offset, int limit, String sort, boolean asc, String filter) {
 		logger.info(String.format("getorders (%d %d %s %b %s)\n", offset, limit, sort, asc, filter));
 		FindOptions opt = new FindOptions();
 		opt.skip(offset);
 		opt.limit(limit);
 		return getordersquery(sort, asc, filter).asList(opt);
-	}
-
-	public static long countaudiovideo(int offset, int limit, String sort, boolean asc, String filter) {
-		logger.info(String.format("countorders (%d %d %s %b %s)\n", offset, limit, sort, asc, filter));
-		FindOptions opt = new FindOptions();
-		opt.skip(offset);
-		opt.limit(limit);
-		return getordersquery(sort, asc, filter).count();
-	}
+	}*/
 
 
 }

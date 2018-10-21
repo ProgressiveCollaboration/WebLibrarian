@@ -2,6 +2,7 @@ package com.pc.app.ui.frag;
 
 import com.pc.app.ui.BaseFragment;
 import com.pc.app.ui.HtmlC.SmallButton;
+import com.pc.app.ui.cruds.GenericCRUD;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -13,6 +14,9 @@ public class PublicationsManager extends Fragment {
 
 	public PublicationsManager() {
 		setHeaderText("Publications");
+		
+		GenericCRUD genericCRUD = new GenericCRUD(GenericCRUD.EntityAction.PUBLICATIONS);
+		add(genericCRUD);
 		
 		SmallButton discontbtn = new SmallButton("Discontinued");
 		discontbtn.addClassName("btn-mr");

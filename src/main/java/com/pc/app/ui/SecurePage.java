@@ -2,13 +2,8 @@ package com.pc.app.ui;
 
 import com.pc.app.ui.HtmlC.IconText;
 import com.pc.app.ui.HtmlC.NavigationBar;
-import com.pc.app.ui.frag.Account;
-import com.pc.app.ui.frag.AudioVideoManager;
-import com.pc.app.ui.frag.InventoryManagment;
-import com.pc.app.ui.frag.MailBox;
-import com.pc.app.ui.frag.PublicationsManager;
-import com.pc.app.ui.frag.ServiceRequest;
-import com.pc.app.ui.frag.UserRegistration;
+import com.pc.app.ui.frag.*;
+import com.pc.entity.Author;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Anchor;
@@ -24,85 +19,97 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 @HtmlImport("styles/shared-styles.html")
 @StyleSheet("css/maincss.css")
+@StyleSheet("css/bootstrap.min.css")
 @Viewport("user-scalable=no, initial-scale=1.0, shrink-to-fit=no")
 @Push
-@Theme(value = Lumo.class, variant = Lumo.LIGHT) 
+@Theme(value = Lumo.class, variant = Lumo.LIGHT)
 public class SecurePage extends Div implements RouterLayout {
-
+	
 	private static final long serialVersionUID = 5873104864223432186L;
-
+	
 	private NavigationBar sidenavbar = new NavigationBar();
-
+	
 	public SecurePage() {
 		addClassNames("securepage");
-
+		
 		Span applicationLogo = new Span("WebLibrarian");
 		applicationLogo.addClassNames("applicationlogo", "navpad", "hideonsmall");
-
+		
 		sidenavbar.addHeader(applicationLogo);
-
+		
 		Span sentity = new Span("ENTITY");
 		sentity.setClassName("hideonsmall");
-
+		
 		Div dashboardtxt = new Div(sentity);
 		dashboardtxt.addClassNames("vnav-sectionheader", "navpad");
-
+		
 		RouterLink q = new RouterLink("", PublicationsManager.class);
 		q.add(new IconText("book.svg", "Publications"));
 		q.setHighlightCondition(HighlightConditions.locationPrefix());
 		q.addClassName("routerlink");
-
+		
 		RouterLink t = new RouterLink("", AudioVideoManager.class);
 		//
-		t.add(new IconText("film.svg", "Audio / Video"));
+		t.add(new IconText("film.svg", "Audio / Videos"));
 		t.setHighlightCondition(HighlightConditions.locationPrefix());
 		t.addClassName("routerlink");
-
-		sidenavbar.addSection(dashboardtxt, t, q);
-
+		
+		RouterLink author = new RouterLink("", AuthorsManager.class);
+		//
+		author.add(new IconText("users.svg", "Authors"));
+		author.setHighlightCondition(HighlightConditions.locationPrefix());
+		author.addClassName("routerlink");
+		
+		RouterLink publisher = new RouterLink("", PublishersManager.class);
+		//
+		publisher.add(new IconText("book.svg", "Publishers"));
+		publisher.setHighlightCondition(HighlightConditions.locationPrefix());
+		publisher.addClassName("routerlink");
+		
+		sidenavbar.addSection(dashboardtxt, t, q, author, publisher);
+		
 		Span sadmin = new Span("ADMINISTRATION");
 		sadmin.setClassName("hideonsmall");
-
+		
 		Div administrationtxt = new Div(sadmin);
 		administrationtxt.addClassNames("vnav-sectionheader", "navpad");
-
+		
 		RouterLink x = new RouterLink("", UserRegistration.class);
 		x.add(new IconText("users.svg", "User Registration"));
 		x.setHighlightCondition(HighlightConditions.locationPrefix());
 		x.addClassName("routerlink");
-
+		
 		RouterLink y = new RouterLink("", InventoryManagment.class);
 		y.add(new IconText("layers-light.svg", "Inventory"));
 		y.setHighlightCondition(HighlightConditions.locationPrefix());
 		y.addClassName("routerlink");
-
+		
 		RouterLink z = new RouterLink("", Account.class);
 		z.add(new IconText("dollar-sign-light.svg", "Accounts"));
 		z.setHighlightCondition(HighlightConditions.locationPrefix());
 		z.addClassNames("routerlink");
-
+		
 		RouterLink r = new RouterLink("", ServiceRequest.class);
 		r.add(new IconText("alert-octagon-light.svg", "Requests / Returns"));
 		r.setHighlightCondition(HighlightConditions.locationPrefix());
 		r.addClassNames("routerlink");
-
+		
 		RouterLink m = new RouterLink("", MailBox.class);
 		m.add(new IconText("mail-light.svg", "MailBox"));
 		m.setHighlightCondition(HighlightConditions.locationPrefix());
 		m.addClassNames("routerlink");
-
+		
 		sidenavbar.addSection(administrationtxt, x, y, z, r, m);
-
+		
 		Div blockspacer = new Div();
 		blockspacer.addClassName("blockspacer");
 		sidenavbar.addSection(blockspacer);
-
+		
 		Anchor signout = new Anchor("logout", "");
 		signout.add(new IconText("log-out-light.svg", "Sign Out"));
 		signout.addClassNames("routerlink");
 		sidenavbar.addFooter(signout);
-
+		
 		add(sidenavbar);
 	}
-
 }
