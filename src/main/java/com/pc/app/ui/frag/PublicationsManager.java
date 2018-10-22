@@ -1,5 +1,7 @@
 package com.pc.app.ui.frag;
 
+import java.util.stream.Collectors;
+
 import com.pc.app.ui.BaseFragment;
 import com.pc.app.ui.HtmlC.GridHeader;
 import com.pc.app.ui.HtmlC.SmallButton;
@@ -61,14 +63,11 @@ public class PublicationsManager extends Fragment {
 				.setFlexGrow(0)//
 				.setWidth("120px");
 
-		pg.addColumn(PublicationsView::getTitle).setHeader(new GridHeader("Title")).setSortProperty("Title");
-		pg.addColumn(PublicationsView::getDescription).setHeader(new GridHeader("Description"));
-		pg.addColumn(PublicationsView::getGenre).setHeader(new GridHeader("Genre")).setSortProperty("Genre")
-				.setFlexGrow(0).setWidth("120px");
-		pg.addColumn(PublicationsView::getPublisherId).setHeader(new GridHeader("Publisher"))
-				.setSortProperty("Publisher");
-		pg.addColumn(PublicationsView::getAuthorId).setHeader(new GridHeader("Author")).setSortProperty("Author");
-
+		pg.addColumn(PublicationsView::getTitle).setHeader(new GridHeader("Title")).setSortProperty("Title"); 
+		pg.addColumn(a -> a.getAuthors().stream().map(t -> t.getAka()).collect(Collectors.joining(", "))).setHeader(new GridHeader("Author")).setSortProperty("Author");
+		pg.addColumn(PublicationsView::getEdition).setHeader(new GridHeader("Edition")).setSortProperty("Edition"); 
+		pg.addColumn(PublicationsView::getGenre).setHeader(new GridHeader("Genre")).setSortProperty("Genre").setFlexGrow(0).setWidth("120px");
+		pg.addColumn(a -> a.getPublisher().getPublisherName()).setHeader(new GridHeader("Publisher")).setSortProperty("Publisher");
 		pg.setDataProvider(filterabledp);
 		addContent(pg);
 	}

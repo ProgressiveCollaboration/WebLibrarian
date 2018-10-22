@@ -244,13 +244,12 @@ public class InventoryManagment extends Fragment implements HasUrlParameter<Stri
 				.setFlexGrow(0)//
 				.setWidth("120px");
 
-		pg.addColumn(PublicationsView::getTitle).setHeader(new GridHeader("Title")).setSortProperty("Title");
-		pg.addColumn(PublicationsView::getDescription).setHeader(new GridHeader("Description"));
+		pg.addColumn(PublicationsView::getTitle).setHeader(new GridHeader("Title")).setSortProperty("Title"); 
 		pg.addColumn(PublicationsView::getGenre).setHeader(new GridHeader("Genre")).setSortProperty("Genre")
 				.setFlexGrow(0).setWidth("120px");
-		pg.addColumn(PublicationsView::getPublisherId).setHeader(new GridHeader("Publisher"))
-				.setSortProperty("Publisher");
-		pg.addColumn(PublicationsView::getAuthorId).setHeader(new GridHeader("Author")).setSortProperty("Author");
+//		pg.addColumn(PublicationsView::getPublisherId).setHeader(new GridHeader("Publisher"))
+//				.setSortProperty("Publisher");
+//		pg.addColumn(PublicationsView::getAuthorId).setHeader(new GridHeader("Author")).setSortProperty("Author");
 //		pg.addColumn(Publication::getFirstPublishedDate);
 
 		pg.setDataProvider(filterabledp);
