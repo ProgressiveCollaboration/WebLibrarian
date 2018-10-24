@@ -16,8 +16,8 @@ import com.vaadin.flow.component.textfield.TextField;
 
 public class HtmlC {
 
-	// grid column widths 
-	public static final String G_W_DATE = "110px"; 
+	// grid column widths
+	public static final String G_W_DATE = "110px";
 	public static final String G_W_PHONE = "160px";
 	public static final String G_W_EMAIL = "160px";
 	public static final String G_W_MONEY = "115px";
@@ -143,6 +143,11 @@ public class HtmlC {
 			getElement().setAttribute("theme", "small");
 		}
 
+		public SmallButton(Component icon) {
+			getElement().setAttribute("theme", "small icon");
+			setIcon(icon);
+		}
+
 		public SmallButton(String text) {
 			this();
 			setText(text);
@@ -161,6 +166,17 @@ public class HtmlC {
 
 		public interface Click {
 			void onclick();
+		}
+
+	}
+
+	public static class ThemeButton extends Button {
+
+		private static final long serialVersionUID = 1L;
+
+		public ThemeButton(String theme, Component icon) {
+			getElement().setAttribute("theme", theme);
+			setIcon(icon);
 		}
 
 	}

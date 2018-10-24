@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import com.pc.app.ui.BaseFragment;
 import com.pc.app.ui.HtmlC;
 import com.pc.app.ui.HtmlC.SmallButton;
+import com.pc.app.ui.HtmlC.TextFieldClearButton;
 import com.pc.app.ui.backend.AuthorsDP;
 import com.pc.entity.Author;
 import com.vaadin.flow.component.grid.Grid;
@@ -33,17 +34,18 @@ public class AuthorsManager extends Fragment {
 		TextField searchbox = new TextField();
 		searchbox.setValueChangeMode(ValueChangeMode.EAGER);
 		searchbox.setPrefixComponent(new Icon("lumo", "search"));
+		searchbox.setSuffixComponent(new TextFieldClearButton(searchbox));
 		searchbox.setPlaceholder("Search By Name");
 		searchbox.getElement().setAttribute("theme", "small");
-		searchbox.getStyle().set("flexGrow", "1").set("maxWidth", "500px");
+		searchbox.getStyle().set("flexGrow", "1").set("maxWidth", "340px");
 		searchbox.addClassName("btn-mr");
 		searchbox.addValueChangeListener(vc -> filterabledp.setFilter(vc.getValue()));
 
-		SmallButton addauthor = new SmallButton("Add Author");
-		addauthor.theme("primary");
+		SmallButton addentity = new SmallButton(new Icon("lumo", "plus"));
+		addentity.theme("primary");
 
-		FlexLayout headercontrols = new FlexLayout(searchbox, addauthor);
-		headercontrols.getStyle().set("flexGrow", "1"); 
+		FlexLayout headercontrols = new FlexLayout(searchbox, addentity);
+		headercontrols.getStyle().set("flexGrow", "1");
 		headercontrols.setJustifyContentMode(JustifyContentMode.END);
 		addHeaderBComponent(headercontrols);
 
@@ -56,11 +58,13 @@ public class AuthorsManager extends Fragment {
 //			pcode.addClickListener(clk -> openAuthorView(author));
 			return open;
 		}).setHeader("Name");
-		pg.addColumn(Author::getEmailAddress).setHeader("Email").setFlexGrow(0).setWidth(HtmlC.G_W_EMAIL);
+//		pg.addColumn(Author::getEmailAddress).setHeader("Email").setFlexGrow(0).setWidth(HtmlC.G_W_EMAIL);
 		pg.addColumn(Author::getWebsite).setHeader("Website");
 		pg.addColumn(Author::getCreatedBy).setHeader("Added By").setFlexGrow(0).setWidth(HtmlC.G_W_EMAIL);
 
-		pg.addColumn(libraryUser -> libraryUser.getCreatedDate().format(DateTimeFormatter.ISO_DATE)).setHeader("Added");
+		pg.addColumn(a -> a.getCreatedDate().format(DateTimeFormatter.ISO_DATE)).setHeader("Added").setFlexGrow(0)
+				.setWidth(HtmlC.G_W_DATE);
+
 		pg.addComponentColumn(author -> {
 			SmallButton edit = new SmallButton();
 			edit.theme("icon").setIcon(new IronIcon("lumo", "edit"));
@@ -69,7 +73,7 @@ public class AuthorsManager extends Fragment {
 			Div fl = new Div(edit);
 			fl.getStyle().set("textAlign", "right");
 			return fl;
-		}).setFlexGrow(0).setWidth("80px");
+		}).setFlexGrow(0).setWidth("100px");
 
 		pg.setDataProvider(filterabledp);
 		addContent(pg);

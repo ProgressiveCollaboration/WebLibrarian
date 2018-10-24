@@ -1,6 +1,9 @@
 package com.pc.app.ui.frag;
 
+import java.time.format.DateTimeFormatter;
+
 import com.pc.app.ui.BaseFragment;
+import com.pc.app.ui.HtmlC;
 import com.pc.app.ui.HtmlC.GridHeader;
 import com.pc.app.ui.HtmlC.SmallButton;
 import com.pc.app.ui.HtmlC.TextFieldClearButton;
@@ -37,21 +40,21 @@ public class PublishersManager extends Fragment {
 		searchbox.setSuffixComponent(new TextFieldClearButton(searchbox));
 		searchbox.setPlaceholder("Search By Publisher Name");
 		searchbox.getElement().setAttribute("theme", "small");
-		searchbox.getStyle().set("flexGrow", "1").set("maxWidth", "500px");
+		searchbox.getStyle().set("flexGrow", "1").set("maxWidth", "340px");
 		searchbox.addClassName("btn-mr");
 		searchbox.addValueChangeListener(vc -> fdp.setFilter(vc.getValue()));
 
-		SmallButton addpublisher = new SmallButton("Add Publisher");
-		addpublisher.theme("primary");
+		SmallButton addentity = new SmallButton(new Icon("lumo", "plus"));
+		addentity.theme("primary");
 
-		addpublisher.onclick(() -> new EditPublisherDialog(new Publisher(), BeanAction.NEW, (bean) -> {
+		addentity.onclick(() -> new EditPublisherDialog(new Publisher(), BeanAction.NEW, (bean) -> {
 			bean.save();
 			fdp.setFilter(null);
 			return true;
 		}).open());
 
-		FlexLayout headercontrols = new FlexLayout(searchbox, addpublisher);
-		headercontrols.getStyle().set("flexGrow", "1"); 
+		FlexLayout headercontrols = new FlexLayout(searchbox, addentity);
+		headercontrols.getStyle().set("flexGrow", "1");
 		headercontrols.setJustifyContentMode(JustifyContentMode.END);
 		addHeaderBComponent(headercontrols);
 
@@ -66,6 +69,9 @@ public class PublishersManager extends Fragment {
 		}).setHeader(new GridHeader("Publisher Name")).setSortProperty(Publisher._publisherName);
 
 		pg.addColumn(Publisher::getPublisherWebsite).setHeader(new GridHeader("Website"));
+
+		pg.addColumn(a -> a.getCreatedDate().format(DateTimeFormatter.ISO_DATE)).setHeader("Added").setFlexGrow(0)
+				.setWidth(HtmlC.G_W_DATE);
 
 		pg.addComponentColumn(fex -> {
 			SmallButton edit = new SmallButton();

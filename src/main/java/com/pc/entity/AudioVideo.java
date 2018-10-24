@@ -17,6 +17,8 @@ public class AudioVideo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String _title = "title";
+
 	private LocalDate releaseDate;
 	private String title;
 	private String description;

@@ -6,7 +6,7 @@ public enum AudioVideoRating {
 	public static String getDisplayText(AudioVideoRating i) {
 		switch (i) {
 		case UNRATED:
-			return "Unknown";
+			return "Unrated";
 		case G:
 			return "G – General Audiences";
 		case PG:

@@ -12,11 +12,11 @@ public class MetaData implements Serializable {
 
 	private String season;
 	private String episode;
-	private long mediaDurationSeconds;
-
 	private String genre;
-	private AudioVideoRating contentRating = AudioVideoRating.UNKNOWN; // PG
+	private AudioVideoRating contentRating = AudioVideoRating.UNKNOWN;
 	private AudioVideoAspectRatio aspectRatio = AudioVideoAspectRatio.UNKNOWN;
+
+	private int mediaDurationSeconds;
 	private float userRating; // 4/5 stars
 
 	private List<String> imageURL = new ArrayList<>();
@@ -29,7 +29,7 @@ public class MetaData implements Serializable {
 		return episode;
 	}
 
-	public long getMediaDurationSeconds() {
+	public int getMediaDurationSeconds() {
 		return mediaDurationSeconds;
 	}
 
@@ -57,7 +57,7 @@ public class MetaData implements Serializable {
 		this.episode = episode;
 	}
 
-	public void setMediaDurationSeconds(long mediaDurationSeconds) {
+	public void setMediaDurationSeconds(int mediaDurationSeconds) {
 		this.mediaDurationSeconds = mediaDurationSeconds;
 	}
 

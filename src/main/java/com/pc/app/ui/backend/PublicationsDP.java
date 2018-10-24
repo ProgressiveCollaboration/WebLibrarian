@@ -1,5 +1,6 @@
 package com.pc.app.ui.backend;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -69,14 +70,14 @@ public class PublicationsDP extends AbstractBackEndDataProvider<PublicationsView
 				// .match(query)
 				.lookup("publisher", "publisherId", "_id", "publisher")//
 				.lookup("author", "authorId", "_id", "authors")//
-				.unwind("publisher")
-				.project(Projection.projection("title"), // 
+				.unwind("publisher").project(Projection.projection("title"), //
 						Projection.projection("publisher"), //
 						Projection.projection("edition"), //
 						Projection.projection("genre"), //
 						Projection.projection("authors"), //
 						Projection.projection("ISBN_10"), //
-						Projection.projection("language")) // 
+						Projection.projection("createdDate"), //
+						Projection.projection("language")) //
 				.limit(limit)//
 				.skip(offset)//
 				.aggregate(PublicationsView.class);
@@ -103,6 +104,7 @@ public class PublicationsDP extends AbstractBackEndDataProvider<PublicationsView
 	public static class PublicationsView extends BaseEntity {
 		private static final long serialVersionUID = 1L;
 
+		private LocalDateTime createdDate;
 		private String uuid;
 		private String edition;
 		private String genre;
@@ -174,6 +176,14 @@ public class PublicationsDP extends AbstractBackEndDataProvider<PublicationsView
 
 		public void setAuthors(List<Author> authors) {
 			this.authors = authors;
+		}
+
+		public LocalDateTime getCreatedDate() {
+			return createdDate;
+		}
+
+		public void setCreatedDate(LocalDateTime createdDate) {
+			this.createdDate = createdDate;
 		}
 	}
 }

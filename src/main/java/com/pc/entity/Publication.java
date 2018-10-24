@@ -38,6 +38,11 @@ public class Publication extends BaseEntity {
 	private String title;
 	private String language;
 
+	@Override
+	public String IdPrefix() {
+		return "PB";
+	}
+
 	public String getBinding() {
 		return binding;
 	}
