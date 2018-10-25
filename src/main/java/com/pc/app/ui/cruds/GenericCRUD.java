@@ -416,6 +416,7 @@ public class GenericCRUD extends FlexLayout {
 			new PublicationDialog((Publication) obj, BeanAction.NEW, i -> {
 				i.persist(i);
 				refreshDataTable((Publication) obj);
+				return false;
 			}).open();
 		}
 		if (obj instanceof AudioVideo) {

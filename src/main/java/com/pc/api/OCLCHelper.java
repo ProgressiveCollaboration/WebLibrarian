@@ -8,6 +8,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.pc.enums.PublicationType;
+
 public class OCLCHelper {
 
 	private final static String baseUrl = "http://classify.oclc.org/classify2";
@@ -20,7 +22,7 @@ public class OCLCHelper {
 		}
 	}
 
-	static List<OCLCWork> findByISBN(String isbn) {
+	public static List<OCLCWork> findByISBN(String isbn) {
 		try {
 			Document doc = Jsoup.connect(baseUrl + "/Classify?").data("isbn", isbn, "summary", "true").get();
 
@@ -30,7 +32,7 @@ public class OCLCHelper {
 			for (Element element : works) {
 				OCLCWork p = new OCLCWork();
 				p.author = element.attr("author");
-				p.format = element.attr("format");
+				p.format = PublicationType.reverse(element.attr("format"));
 				p.hyear = element.attr("hyr");
 				p.lyear = element.attr("lyr");
 				p.owi = element.attr("owi");
@@ -52,7 +54,7 @@ public class OCLCHelper {
 
 	public static class OCLCWork {
 		public String author;
-		public String format;
+		public PublicationType format;
 		public String hyear;
 		public String lyear;
 		public String owi;

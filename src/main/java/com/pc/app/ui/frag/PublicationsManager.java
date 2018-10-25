@@ -10,6 +10,9 @@ import com.pc.app.ui.HtmlC.SmallButton;
 import com.pc.app.ui.HtmlC.TextFieldClearButton;
 import com.pc.app.ui.backend.PublicationsDP;
 import com.pc.app.ui.backend.PublicationsDP.PublicationsView;
+import com.pc.app.ui.dialog.BasicDialog.BeanAction;
+import com.pc.app.ui.dialog.PublicationDialog;
+import com.pc.entity.Publication;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -47,6 +50,11 @@ public class PublicationsManager extends Fragment {
 //		SmallButton exportbtn = new SmallButton("Export Data");
 //		exportbtn.addClassName("btn-mr");
 		SmallButton addentity = new SmallButton(new Icon("lumo", "plus"));
+		addentity.addClickListener(clk -> new PublicationDialog(new Publication(), BeanAction.NEW, (bean) -> {
+			bean.save();
+			filterabledp.refreshAll();
+			return true;
+		}).open());
 		addentity.theme("primary");
 
 		FlexLayout headercontrols = new FlexLayout(searchbox, addentity);

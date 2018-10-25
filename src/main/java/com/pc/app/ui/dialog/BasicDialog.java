@@ -16,7 +16,8 @@ public class BasicDialog extends Dialog {
 	private static final long serialVersionUID = -2520361391158861741L;
 
 	final Span header = new Span();
-	final FlexMe headerflex = new FlexMe();
+	final Div headerB = new Div();
+	final FlexMe headerflex = new FlexMe(header, headerB);
 	final Div contentdiv = new Div();
 	final FlexLayout formComponentFlex = new FlexLayout();
 	final FlexLayout footdiv = new FlexLayout(formComponentFlex);
@@ -24,7 +25,6 @@ public class BasicDialog extends Dialog {
 	public BasicDialog(BeanAction actiontype) {
 
 		header.getStyle().set("fontWeight", "600").set("fontSize", "var(--lumo-font-size-l)");
-		headerflex.add(header);
 
 		formComponentFlex.getStyle().set("flexGrow", "1");
 		footdiv.addClassName("mt-2");
@@ -58,6 +58,10 @@ public class BasicDialog extends Dialog {
 
 	public void setTitle(String text) {
 		header.setText(text);
+	}
+
+	public void addHeaderBComponent(Component... c) {
+		headerB.add(c);
 	}
 
 	public void setContent(Component component) {
